@@ -1,0 +1,62 @@
+[
+    {
+        "levels": [
+            {
+                "index": 0,
+                "stage": 0,
+                "row": -1,
+                "col": 0,
+                "type": "START",
+                "tails": [1, 2]
+            },
+            {
+                "index": 1,
+                "stage": 0,
+                "row": 1,
+                "col": 1,
+                "type": "BATTLE",
+                "tails": [3]
+            },
+            {
+                "index": 2,
+                "stage": 0,
+                "row": 2,
+                "col": 1,
+                "type": "BATTLE",
+                "tails": [3]
+            },
+            {
+                "index": 3,
+                "stage": 0,
+                "row": 2,
+                "col": 2,
+                "type": "BATTLE",
+                "tails": [4]
+            },
+            {
+                "index": 4,
+                "stage": 0,
+                "row": 3,
+                "col": 3,
+                "type": "BATTLE",
+                "tails": [5]
+            },
+            {
+                "index": 5,
+                "stage": 0,
+                "row": -1,
+                "col": 4,
+                "type": "BOSS",
+                "tails": []
+            }
+        
+        ],
+        "index": 0,
+        "name": "우리집 앞마당" 
+    },
+
+    {
+
+    }
+    
+]

@@ -4,29 +4,35 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Step : MonoBehaviour {
-    public struct StepInfo {
-        public Type type;
-        public int index;    // monster info
-        public int floor;
-        public int row;
-        public int col;
-    }
+public struct StepInfo {
+    public Type type;
+    public int index;    // monster info
+    public int row;
+    public int col;
 
+    public StepInfo(Level level) {
+        type = level.type;
+        index = level.index;
+        row = level.row;
+        col = level.col;
+    }
+    
+}
+public class Step : MonoBehaviour {
+    
 
     [SerializeField] private TextMeshPro displayText;
     [SerializeField] private SpriteRenderer sprite;
 
-    public Action OnClicked;
+    public static Action<StepInfo> OnClicked;
 
     private StepInfo info;
 
-    public void SetInfo(StepInfo info) {
-        this.info = info;
+    public void SetInfo(Level level) {
+        this.info = new StepInfo(level);
 
         displayText.text = info.type.ToString();
 
-        
     }
 
     private void SetStatus() {
@@ -58,8 +64,7 @@ public class Step : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        Debug.LogError("HERE");
-        OnClicked?.Invoke();
+        OnClicked?.Invoke(info);
     }
 
 }

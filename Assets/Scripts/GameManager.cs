@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
-{
-    
+public class GameManager : MonoSingleton<GameManager> {
+	public void StartGame() {
+		
+	}
+
 }

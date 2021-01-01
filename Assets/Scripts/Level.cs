@@ -14,4 +14,15 @@ public class Level {
 	public int col;
 	public Type type;
 	public int[] tails;
+	public int[] monsters;	// monster index array
+	public int[] monstersPos;	// monster position = row + (col * 5)
 }
+
+public class Monster {
+    public int index;
+    public string name;
+    public int hp;
+    public int str;
+	public int lv;
+}
+

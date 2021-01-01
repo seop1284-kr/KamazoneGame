@@ -11,6 +11,7 @@ public class GameData : Singleton<GameData> {
     }
 
     public Stage[] stages;
+    public Monster[] monsters;
 
     // 스테이지 데이터 가져오기
     public void LoadStageData() {
@@ -19,6 +20,15 @@ public class GameData : Singleton<GameData> {
 
         if (textAsset == null) { Debug.LogError(fileName + " is not found"); }
         else { stages = JsonReader.Deserialize<Stage[]>(textAsset.text); }
+    }
+
+    // 몬스터 데이터 가져오기
+    public void LoadMonsterData() {
+        string fileName = "monster_data";
+        TextAsset textAsset = Resources.Load(fileName, typeof(TextAsset)) as TextAsset;
+
+        if (textAsset == null) { Debug.LogError(fileName + " is not found"); }
+        else { monsters = JsonReader.Deserialize<Monster[]>(textAsset.text); }
     }
 }
 

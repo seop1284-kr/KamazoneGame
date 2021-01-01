@@ -19,5 +19,4 @@ public class MapScene : MonoBehaviour {
     private void OnClickStep(StepInfo stepInfo) {
         PopupManager.Instance.Show("ReadyPopup");
     }
-    
 }

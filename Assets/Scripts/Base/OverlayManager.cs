@@ -2,16 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OverlayManager : MonoSingleton<OverlayManager> {
+public class OverlayManager : Singleton<OverlayManager> {
     private Dictionary<string, OverlayBase> _overlayache = new Dictionary<string, OverlayBase>();
-    
-    void Start() {
-        var overlays = GetComponentsInChildren<OverlayBase>(true);
-        foreach (var overlay in overlays) {
-            _overlayache.Add(overlay.name, overlay);
-        }
-
-    }
 
     public void Show(string overlayName) {
         if (_overlayache.ContainsKey(overlayName)) {
@@ -27,5 +19,13 @@ public class OverlayManager : MonoSingleton<OverlayManager> {
         } else {
             Debug.LogError(overlayName + " is not defined");
         }
+    }
+
+    public void Add(string overlayName, OverlayBase overlay) {
+        _overlayache.Add(overlayName, overlay);
+    }
+    
+    public void Remove(string overlayName) {
+        _overlayache.Remove(overlayName);
     }
 }

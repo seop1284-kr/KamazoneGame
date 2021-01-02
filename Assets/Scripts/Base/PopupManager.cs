@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PopupManager : MonoSingleton<PopupManager> {
+public class PopupManager : Singleton<PopupManager> {
     private Dictionary<string, PopupBase> _popupCache = new Dictionary<string, PopupBase>();
     private Stack<PopupBase> _popups = new Stack<PopupBase>();
 
     public bool IsOpenedPopup => _popups.Count > 0;
-    
-    void Start() {
-        var popups = GetComponentsInChildren<PopupBase>(true);
-        foreach (var popup in popups) {
-            _popupCache.Add(popup.name, popup);
-        }
-
-    }
 
     public void Show(string popupName) {
         if (_popupCache.ContainsKey(popupName)) {
@@ -31,5 +23,13 @@ public class PopupManager : MonoSingleton<PopupManager> {
         popup.Hide();
 
         _popups.Pop();
+    }
+
+    public void Add(string popupName, PopupBase popup) {
+        _popupCache.Add(popupName, popup);
+    }
+    
+    public void Remove(string popupName) {
+        _popupCache.Remove(popupName);
     }
 }

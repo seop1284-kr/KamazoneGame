@@ -11,4 +11,8 @@ public class PopupBase : MonoBehaviour
     public void Hide() {
         gameObject.SetActive(false);
     }
+
+    public virtual void Enter(object param) {
+        
+    }
 }

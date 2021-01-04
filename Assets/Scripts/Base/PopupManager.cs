@@ -18,10 +18,11 @@ public class PopupManager : Singleton<PopupManager> {
 
     public bool IsOpenedPopup => _popups.Count > 0;
 
-    public void Show(string popupName, Action<object> callback = null) {
+    public void Show(string popupName, object param = null, Action<object> callback = null) {
         if (_popupCache.ContainsKey(popupName)) {
             _popups.Push(new PopupItem(_popupCache[popupName], callback));
             _popups.Peek().popupBase.Show();
+            _popups.Peek().popupBase.Enter(param);
         } else {
             Debug.LogError(popupName + " is not defined");
         }

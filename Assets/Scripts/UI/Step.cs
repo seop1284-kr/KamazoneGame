@@ -19,14 +19,16 @@ public struct StepInfo {
     
 }
 public class Step : MonoBehaviour {
-    
-
     [SerializeField] private TextMeshPro displayText;
     [SerializeField] private SpriteRenderer sprite;
 
     public static Action<StepInfo> OnClicked;
 
     private StepInfo info;
+
+    public void SetActive(bool isActive) {
+        gameObject.SetActive(isActive);
+    }
 
     public void SetInfo(Level level) {
         this.info = new StepInfo(level);

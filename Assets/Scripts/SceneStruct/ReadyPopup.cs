@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReadyPopup : PopupBase
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+public class ReadyPopup : PopupBase {
+    public void OnClickStart() {
+        PopupManager.Instance.Close("start");
         
     }
 }

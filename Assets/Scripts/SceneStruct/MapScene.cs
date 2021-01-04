@@ -41,7 +41,7 @@ public class MapScene : MonoBehaviour {
 
 
     private void OnClickStep(StepInfo stepInfo) {
-        PopupManager.Instance.Show("ReadyPopup", par => {
+        PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[stepInfo.index], par => {
             if (par != null) {
                 var result = (string) par;
                 if (result == "start") {

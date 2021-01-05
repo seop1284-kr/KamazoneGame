@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class ReadyPopup : PopupBase {
     
-    private DeckCell[] deckCells;
+    [SerializeField] private DeckCell[] enemyDeckCells;
     
     private Level level;
+
     public override void Enter(object param) {
         level = param as Level;
+        InitBoard();
+
 
     }
     public void InitBoard() {
-        for (int i = 0; i < level.monsters.Length; ++i) {
-            
+        foreach (var enemyDeckCell in enemyDeckCells) {
+            enemyDeckCell.SetInfo(null);
+        }
+        for (int i = 0; i < level.monstersPos.Length; ++i) {
+            enemyDeckCells[level.monstersPos[i]].SetInfo(GameData.Instance.monsters[level.monsters[i]]);
         }
     }
 

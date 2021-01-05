@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public struct MonsterInfo {
+public class MonsterInfo {
     public int index;
     public string name;
     public int hp;
@@ -20,11 +20,15 @@ public struct MonsterInfo {
 }
 
 public class DeckCell : MonoBehaviour {
-    private TextMeshProUGUI displayText;
+    [SerializeField] private TextMeshProUGUI displayText;
     MonsterInfo monsterInfo;
     public void SetInfo(Monster monster) {
-        this.monsterInfo = new MonsterInfo(monster);
+        if (monster == null) {
+            displayText.text = "empty";
+        } else {
+            this.monsterInfo = new MonsterInfo(monster);
+            displayText.text = monsterInfo.name;
+        }
         
-        displayText.text = monsterInfo.name;
     }
 }

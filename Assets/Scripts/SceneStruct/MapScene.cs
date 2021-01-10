@@ -45,7 +45,7 @@ public class MapScene : MonoBehaviour {
             if (par != null) {
                 var result = (string) par;
                 if (result == "start") {
-                    SceneManager.LoadScene("PlayScene");
+                    SceneManager.LoadScene("BattleScene");
                 }
             }
         });

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager> {
-	private List<Character> guardians = new List<Character>();
-	private List<Character> enemies = new List<Character>();
+	private List<Character> characters = new List<Character>();
 
 
-	public void ReadyGame(List<Character> gList, List<Character> eList) {
-		guardians = gList;
-		enemies = eList;
+	public void ReadyGame(List<Character> gList) {
+		characters = gList;
+
+		foreach (var character in characters) {
+			character.SetInfo();
+		}
 	}
 	
 	public void StartGame() {
@@ -17,22 +19,22 @@ public class GameManager : MonoSingleton<GameManager> {
 	}
 
 	public Character GetCloseCharacter(Character ch) {
-		if (ch.CharacterType == Character.Type.GUARDIAN) {
-			return GetCloseCharacter(ch, enemies);
- 		} else {
-			return GetCloseCharacter(ch, guardians);
-		}
+		var chType = (ch.CharacterType == Character.Type.GUARDIAN) ? Character.Type.ENEMY : Character.Type.GUARDIAN;
+		
+		return GetCloseCharacter(ch, chType);
 	}
 
-	private Character GetCloseCharacter(Character ch, List<Character> characters) {
+	private Character GetCloseCharacter(Character ch, Character.Type chType) {
 		float dis = Mathf.Infinity;
 		Character closeCharacter = null;
 		
-		foreach (var enemy in characters) {
-			var disPos = ch.transform.position - enemy.transform.position;
+		foreach (var character in characters) {
+			if (character.CharacterType != chType) continue;
+			
+			var disPos = ch.transform.position - character.transform.position;
 			if (Mathf.Abs(disPos.magnitude) < dis) {
 				dis = Mathf.Abs(disPos.magnitude);
-				closeCharacter = enemy;
+				closeCharacter = character;
 			}
 		}
 

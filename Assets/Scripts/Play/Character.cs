@@ -8,6 +8,7 @@ using UnityEngine.Timeline;
 public class Character : MonoBehaviour {
     [SerializeField] private Animator animator;
     [SerializeField] private TextMeshPro display;
+    [SerializeField] private Type _characterType;
     
     public enum Type {
         GUARDIAN,
@@ -24,14 +25,13 @@ public class Character : MonoBehaviour {
 
     public Type CharacterType { get; set; }
 
-    //private Type characterType;
     private Status status = Status.IDLE;
     private Character targetCharacter;
 
-    private float speed = 0.2f;
+    private CharacterInfo characterInfo = new CharacterInfo();
 
     public void SetInfo() {
-        
+        CharacterType = _characterType;
     }
 
     private void Start() {
@@ -51,7 +51,7 @@ public class Character : MonoBehaviour {
                 break;
             case Status.CHASE:
                 var vec = targetCharacter.transform.position - transform.position;
-                transform.Translate(vec * (Time.deltaTime * speed), Space.Self);
+                transform.Translate(vec * (Time.deltaTime * characterInfo.speed), Space.Self);
                 var distance = targetCharacter.transform.position - transform.position;
                 if (Mathf.Abs(distance.magnitude) <= 2f) {
                     status = Status.ATTACK;

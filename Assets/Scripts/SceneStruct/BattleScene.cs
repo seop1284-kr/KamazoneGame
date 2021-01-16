@@ -12,6 +12,7 @@ public class BattleScene : MonoBehaviour {
         }
         
         GameManager.Instance.ReadyGame(characters.ToList());
+        GameManager.Instance.StartGame();
     }
 
 }

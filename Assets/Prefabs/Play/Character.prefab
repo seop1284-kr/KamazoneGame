@@ -233,7 +233,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 40f034644ecb04d688fc724dcc555974, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -298,6 +298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7695610220125927272}
   display: {fileID: 4051364725726631177}
+  _characterType: 0
+  hpBar: {fileID: 1225298491105063469}
 --- !u!95 &7695610220125927272
 Animator:
   serializedVersion: 3

@@ -15,7 +15,9 @@ public class GameManager : MonoSingleton<GameManager> {
 	}
 	
 	public void StartGame() {
-		
+		foreach (var character in characters) {
+			character.Init();
+		}
 	}
 
 	public Character GetCloseCharacter(Character ch) {
@@ -39,6 +41,10 @@ public class GameManager : MonoSingleton<GameManager> {
 		}
 
 		return closeCharacter;
+	}
+
+	public void Attack(Character to, float dmg) {
+		to.AttackedFromOther(dmg);
 	}
 
 }

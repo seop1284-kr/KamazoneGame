@@ -11,8 +11,6 @@ public class ReadyPopup : PopupBase {
     public override void Enter(object param) {
         level = param as Level;
         InitBoard();
-
-
     }
     public void InitBoard() {
         foreach (var enemyDeckCell in enemyDeckCells) {

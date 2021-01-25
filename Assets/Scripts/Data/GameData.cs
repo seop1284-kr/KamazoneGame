@@ -4,6 +4,8 @@ using UnityEngine;
 
 using JsonFx.Json;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 public class GameData : Singleton<GameData> {
     public class Profile {
@@ -12,6 +14,8 @@ public class GameData : Singleton<GameData> {
 
     public Stage[] stages;
     public Monster[] monsters;
+    public Player playerInfo;
+    private string dataPath = Application.persistentDataPath + "/gameData.dat";
 
     // 스테이지 데이터 가져오기
     public void LoadStageData() {
@@ -29,6 +33,32 @@ public class GameData : Singleton<GameData> {
 
         if (textAsset == null) { Debug.LogError(fileName + " is not found"); }
         else { monsters = JsonReader.Deserialize<Monster[]>(textAsset.text); }
+    }
+
+    // 플레이어 저장 데이터 가져오기
+    public void LoadPlayerData() {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(dataPath, FileMode.Open);
+        playerInfo = (Player)bf.Deserialize(file);
+        file.Close();
+    }
+
+    // 플레이어 데이터 초기화
+    public void InitPlayerData() {
+        
+        string fileName = "player_init_data";
+        TextAsset textAsset = Resources.Load(fileName, typeof(TextAsset)) as TextAsset;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(dataPath);
+
+        if (textAsset == null) { Debug.LogError(fileName + " is not found"); }
+        else {
+            Player player = new Player();
+            player = JsonReader.Deserialize<Player>(textAsset.text);
+            bf.Serialize(file, player);
+            file.Close();
+        }
     }
 }
 

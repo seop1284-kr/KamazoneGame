@@ -6,6 +6,7 @@ public class Initializer : MonoBehaviour {
     void Start() {
         GameData.Instance.LoadStageData();
         GameData.Instance.LoadMonsterData();
+        GameData.Instance.LoadPlayerData();
         DontDestroyOnLoad(this);
     }
 }

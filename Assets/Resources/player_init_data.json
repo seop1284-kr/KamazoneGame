@@ -1,0 +1,26 @@
+{
+    "name": "누리",
+    "money": 0,
+    "heros": [
+        {
+            "index": 0,
+            "name": "영웅1",
+            "hp": 100,
+            "curHp": 100,
+            "str": 20,
+            "lv": 1
+        },
+        {
+            "index": 0,
+            "name": "영웅2",
+            "hp": 100,
+            "curHp": 100,
+            "str": 20,
+            "lv": 1
+        }
+    ],
+    "stageIdx": 0,
+    "levelIdx": 0
+
+}
+

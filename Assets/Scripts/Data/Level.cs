@@ -26,3 +26,21 @@ public class Monster {
 	public int lv;
 }
 
+[System.Serializable]
+public class Hero {
+	public int index;
+    public string name;
+    public int hp;
+	public int curHp;
+    public int str;
+	public int lv;
+}
+
+[System.Serializable]
+public class Player {
+	public string name;
+	public int money;
+	public Hero[] heros;	// 보유하고 있는 영웅
+	public int stageIdx;
+	public int levelIdx;
+}

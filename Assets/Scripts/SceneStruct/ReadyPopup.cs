@@ -5,6 +5,7 @@ using UnityEngine;
 public class ReadyPopup : PopupBase {
     
     [SerializeField] private DeckCell[] enemyDeckCells;
+    [SerializeField] private ProfileCell[] heroProfileCells;
     
     private Level level;
 
@@ -19,6 +20,15 @@ public class ReadyPopup : PopupBase {
         for (int i = 0; i < level.monstersPos.Length; ++i) {
             enemyDeckCells[level.monstersPos[i]].SetInfo(GameData.Instance.monsters[level.monsters[i]]);
         }
+
+        foreach (var heroProfileCell in heroProfileCells) {
+            heroProfileCell.SetInfo(null);
+        }
+
+        for (int i = 0; i < GameData.Instance.playerInfo.heros.Length; ++i) {
+            heroProfileCells[i].SetInfo(GameData.Instance.playerInfo.heros[i]);
+        }
+
     }
 
     public void OnClickStart() {

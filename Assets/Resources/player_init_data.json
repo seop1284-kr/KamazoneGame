@@ -4,7 +4,7 @@
     "heros": [
         {
             "index": 0,
-            "name": "영웅1",
+            "name": "nuri1",
             "hp": 100,
             "curHp": 100,
             "str": 20,
@@ -12,12 +12,13 @@
         },
         {
             "index": 0,
-            "name": "영웅2",
+            "name": "nuri2",
             "hp": 100,
             "curHp": 100,
             "str": 20,
             "lv": 1
         }
+        
     ],
     "stageIdx": 0,
     "levelIdx": 0

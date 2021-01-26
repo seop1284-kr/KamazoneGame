@@ -24,7 +24,7 @@ public class DeckCell : MonoBehaviour {
     MonsterInfo monsterInfo;
     public void SetInfo(Monster monster) {
         if (monster == null) {
-            displayText.text = "empty";
+            displayText.text = "";
         } else {
             this.monsterInfo = new MonsterInfo(monster);
             displayText.text = monsterInfo.name;

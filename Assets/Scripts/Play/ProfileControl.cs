@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -33,11 +34,10 @@ public class ProfileControl : MonoBehaviour
     }
 
     public void OnClickAdd() {
+        if (selectedHero == null) return;
+        
         BoardControl.Instance.AddHero(selectedHero);
         
-        // add 된 경우,
-        if (selectedHero.isOn) {
-            addButtonText.text = selectedHero.isOn ? "Remove" : "Add";
-        }
+        addButtonText.text = selectedHero.isOn ? "Remove" : "Add";
     }
 }

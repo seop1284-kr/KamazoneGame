@@ -21,7 +21,8 @@
         
     ],
     "stageIdx": 0,
-    "levelIdx": 0
+    "levelIdx": 0,
+    "isPlaying": true
 
 }
 

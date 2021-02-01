@@ -43,4 +43,5 @@ public class Player {
 	public Hero[] heros;	// 보유하고 있는 영웅
 	public int stageIdx;
 	public int levelIdx;
+	public bool isPlaying;
 }

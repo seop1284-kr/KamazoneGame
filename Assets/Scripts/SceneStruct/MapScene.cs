@@ -39,15 +39,30 @@ public class MapScene : MonoBehaviour {
         }
     }
 
-
     private void OnClickStep(StepInfo stepInfo) {
-        PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[stepInfo.index], par => {
-            if (par != null) {
-                var result = (string) par;
-                if (result == "start") {
-                    SceneManager.LoadScene("BattleScene");
-                }
+        stepInfo.SetIsNextStep(false);
+        foreach (int i in GameData.Instance.stages[0].levels[GameData.Instance.playerInfo.levelIdx].tails) {
+            if (stepInfo.index == i) {
+                stepInfo.SetIsNextStep(true);
             }
-        });
+        }
+
+        if (GameData.Instance.playerInfo.isPlaying == true && GameData.Instance.playerInfo.levelIdx == stepInfo.index) {
+            // 스텝 진행 중인 경우 // 클릭하면 팝업 출력
+            PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[stepInfo.index], par => {
+                if (par != null) {
+                    var result = (string) par;
+                    if (result == "start") {
+                        SceneManager.LoadScene("BattleScene");
+                    }
+                }
+            });
+        } else if (GameData.Instance.playerInfo.isPlaying == false && stepInfo.isNextStep) {
+            // 스텝 진행 중 아니고 다음 스텝인 경우 // 클릭하면 이동
+            GameData.Instance.playerInfo.isPlaying = true;
+            GameData.Instance.playerInfo.levelIdx = stepInfo.index;
+        }
+        
     }
+
 }

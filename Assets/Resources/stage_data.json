@@ -8,7 +8,7 @@
                 "col": 0,
                 "type": "START",
                 "tails": [1, 2],
-                "monsters_idx": [],
+                "monsters": [],
                 "monstersPos": []
             },
             {

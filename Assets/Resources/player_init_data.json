@@ -3,16 +3,14 @@
     "money": 0,
     "heros": [
         {
-            "index": 0,
-            "name": "nuri1",
+            "type": 2,
             "hp": 100,
             "curHp": 100,
             "str": 20,
             "lv": 1
         },
         {
-            "index": 0,
-            "name": "nuri2",
+            "type": 2,
             "hp": 100,
             "curHp": 100,
             "str": 20,

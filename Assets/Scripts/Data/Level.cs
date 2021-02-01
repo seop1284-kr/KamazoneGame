@@ -19,7 +19,7 @@ public class Level {
 }
 
 public class Monster {
-    public int index;
+    public int type;
     public string name;
     public int hp;
     public int str;
@@ -28,8 +28,7 @@ public class Monster {
 
 [System.Serializable]
 public class Hero {
-	public int index;
-    public string name;
+	public int type;
     public int hp;
 	public int curHp;
     public int str;

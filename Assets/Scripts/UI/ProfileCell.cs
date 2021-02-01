@@ -5,6 +5,7 @@ using TMPro;
 
 public class HeroInfo {
     public int index;
+    public int type;
     public string name;
     public int hp;
     public int curHp;
@@ -12,9 +13,10 @@ public class HeroInfo {
     public int lv;
     public bool isOn;
 
-    public HeroInfo(Hero hero) {
-        index = hero.index;
-        name = hero.name;
+    public HeroInfo(Hero hero, int idx) {
+        index = idx;
+        type = hero.type;
+        name = GameData.Instance.monsters[hero.type].name;
         hp = hero.hp;
         curHp = hero.curHp;
         str = hero.str;
@@ -32,11 +34,11 @@ public class ProfileCell : MonoBehaviour {
     
     HeroInfo heroInfo;
     
-    public void SetInfo(Hero hero) {
+    public void SetInfo(Hero hero, int index = -1) {
         if (hero == null) {
             displayText.text = "";
         } else {
-            this.heroInfo = new HeroInfo(hero);
+            this.heroInfo = new HeroInfo(hero, index);
             displayText.text = heroInfo.name;
         }
     }

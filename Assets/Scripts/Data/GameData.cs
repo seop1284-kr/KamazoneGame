@@ -40,6 +40,8 @@ public class GameData : Singleton<GameData> {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(dataPath, FileMode.Open);
         playerInfo = (Player)bf.Deserialize(file);
+        // cheat
+        playerInfo.isPlaying = false;
         file.Close();
     }
 

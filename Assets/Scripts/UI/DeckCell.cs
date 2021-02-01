@@ -7,13 +7,15 @@ using UnityEngine.UI;
 
 public class CellInfo {
     public int index;
+    public int type;
     public string name;
     public int hp;
     public int str;
     public int lv;
 
     public CellInfo(Monster monster) {
-        index = monster.index;
+        index = -1;
+        type = monster.type;
         name = monster.name;
         hp = monster.hp;
         str = monster.str;
@@ -22,6 +24,7 @@ public class CellInfo {
     
     public CellInfo(HeroInfo hero) {
         index = hero.index;
+        type = hero.type;
         name = hero.name;
         hp = hero.hp;
         str = hero.str;

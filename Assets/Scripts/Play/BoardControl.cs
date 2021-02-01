@@ -34,7 +34,7 @@ public class BoardControl : MonoSingleton<BoardControl> {
 
     public void AddHero(HeroInfo heroInfo) {
         if (heroInfo.isOn) {
-            var deckCell = Array.Find(heroDeckCells, cell => cell.CellInfo.index == heroInfo.index);
+            var deckCell = Array.Find(heroDeckCells, cell => cell.CellInfo?.index == heroInfo.index);
             deckCell.Init();
             heroInfo.isOn = false;
             return;

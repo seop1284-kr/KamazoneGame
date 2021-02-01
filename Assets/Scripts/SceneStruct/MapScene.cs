@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MapScene : MonoBehaviour {
+    [SerializeField] private Step startStep;
     [SerializeField] private Step[] steps;
     [SerializeField] private Step bossStep;
 
@@ -29,8 +30,9 @@ public class MapScene : MonoBehaviour {
             if (level.row == -1) {
                 if (level.type == Type.BOSS) {
                     bossStep.SetInfo(level);
+                } else if (level.type == Type.START) {
+                    startStep.SetInfo(level);
                 }
-
             } else {
                 int idx = level.row + level.col * 4 - 4;
                 steps[idx].SetActive(true);

@@ -8,6 +8,8 @@ public class MapScene : MonoBehaviour {
     [SerializeField] private Step startStep;
     [SerializeField] private Step[] steps;
     [SerializeField] private Step bossStep;
+    [SerializeField] private CharacterInMap character;
+
 
     private void Start() {
         Step.OnClicked += OnClickStep;
@@ -21,50 +23,47 @@ public class MapScene : MonoBehaviour {
     }
 
     private void InitMap() {
+        int curStageIdx = GameData.Instance.playerInfo.stageIdx;
+        int curLevelIdx = GameData.Instance.playerInfo.levelIdx;
+
+        // 스텝 비우기
         foreach (var step in steps) {
             step.SetActive(false);
         }
 
-        for (int i = 0; i < GameData.Instance.stages[0].levels.Length; ++i) {
-            var level = GameData.Instance.stages[0].levels[i];
+        // 스텝 초기화
+        for (int i = 0; i < GameData.Instance.stages[curStageIdx].levels.Length; ++i) {
+            var level = GameData.Instance.stages[curStageIdx].levels[i];
             if (level.row == -1) {
+                // 시작 스텝 또는 보스 스텝
                 if (level.type == Type.BOSS) {
                     bossStep.SetInfo(level);
                 } else if (level.type == Type.START) {
                     startStep.SetInfo(level);
                 }
             } else {
+                // 일반 스텝
                 int idx = level.row + level.col * 4 - 4;
-                steps[idx].SetActive(true);
-                steps[idx].SetInfo(level);
+                Step step = steps[idx];
+
+                step.SetActive(true);
+                step.SetInfo(level);                
             }
         }
+        // 캐릭터 놓기
+        character.Set();
+
     }
 
     private void OnClickStep(StepInfo stepInfo) {
-        stepInfo.SetIsNextStep(false);
-        foreach (int i in GameData.Instance.stages[0].levels[GameData.Instance.playerInfo.levelIdx].tails) {
-            if (stepInfo.index == i) {
-                stepInfo.SetIsNextStep(true);
-            }
-        }
-
-        if (GameData.Instance.playerInfo.isPlaying == true && GameData.Instance.playerInfo.levelIdx == stepInfo.index) {
-            // 스텝 진행 중인 경우 // 클릭하면 팝업 출력
-            PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[stepInfo.index], par => {
-                if (par != null) {
-                    var result = (string) par;
-                    if (result == "start") {
-                        SceneManager.LoadScene("BattleScene");
-                    }
+        PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[stepInfo.index], par => {
+            if (par != null) {
+                var result = (string) par;
+                if (result == "start") {
+                    SceneManager.LoadScene("BattleScene");
                 }
-            });
-        } else if (GameData.Instance.playerInfo.isPlaying == false && stepInfo.isNextStep) {
-            // 스텝 진행 중 아니고 다음 스텝인 경우 // 클릭하면 이동
-            GameData.Instance.playerInfo.isPlaying = true;
-            GameData.Instance.playerInfo.levelIdx = stepInfo.index;
-        }
-        
+            }
+        });
     }
 
 }

@@ -9,20 +9,13 @@ public struct StepInfo {
     public int index;    // monster info
     public int row;
     public int col;
-    public bool isNextStep;
 
     public StepInfo(Level level) {
         type = level.type;
         index = level.index;
         row = level.row;
         col = level.col;
-        isNextStep = false;
     }
-
-    public void SetIsNextStep(bool setNext) {
-        isNextStep = setNext;
-    }
-    
 }
 public class Step : MonoBehaviour {
     [SerializeField] private TextMeshPro displayText;
@@ -32,61 +25,69 @@ public class Step : MonoBehaviour {
 
     private StepInfo info;
 
-
     public void SetActive(bool isActive) {
         gameObject.SetActive(isActive);
-
     }
 
     public void SetInfo(Level level) {
         this.info = new StepInfo(level);
-
-        displayText.text = info.type.ToString();
-
-    }
-
-
-
-    // public void SetStatus(bool isOn) {
-    //     if (GameData.Instance.playerInfo.levelIdx == info.index) {
-    //         // playing
-    //         if (GameData.Instance.playerInfo.isPlaying) {
-    //             // 자기 위치만 액티브
-    //             info.isClickable = true; 
-    //         } else {
-    //             // 다음 위치 선택
-    //             GameData.Instance.playerInfo.isPlaying
-    //         }
-    //     }
-    //     // // current
-    //     // if (GameData.Instance.savedData.order == info.order) {
-    //     //     // cleared
-    //     //     if (GameData.Instance.savedData.isCleared) {
-    //     //         
-    //     //     } else {
-    //     //         
-    //     //     }
-    //     //
-    //     //     return;
-    //     // }
-    //     //
-    //     // // next
-    //     // if (GameData.Instance.savedData.order == info.order - 1) {
-    //     //     // opened
-    //     //     if (GameData.Instance.savedData.isCleared) {
-    //     //         
-    //     //     } else {
-    //     //         
-    //     //     }
-    //     // }
-    // }
-
-    public void OnClick() {
         
+        if (IsCharacterOn()) {
+            sprite.color = Color.green;    
+        }
+
+        if (IsCleared()) {
+            sprite.color = Color.grey;
+        }
+
+        if (IsNextStep() && !IsPlaying()) {
+            sprite.color = Color.yellow;
+        }
+
+        
+        displayText.text = info.type.ToString();
     }
+
+    private bool IsCleared() {
+        foreach(int i in GameData.Instance.playerInfo.clearedLevelList) {
+            if (info.index == i) { return true; }
+        }
+        return false;
+    }
+
+    private bool IsCharacterOn() {
+        if (GameData.Instance.playerInfo.levelIdx == info.index) { return true; }
+        return false;
+    }
+
+    private bool IsNextStep() {
+        int curStageIdx = GameData.Instance.playerInfo.stageIdx;
+        int curLevelIdx = GameData.Instance.playerInfo.levelIdx;
+        foreach(int i in GameData.Instance.stages[curStageIdx].levels[curLevelIdx].tails) {
+            if (info.index == i) { return true; }
+        }
+        return false;
+    }
+
+    private bool IsPlaying() {
+        return GameData.Instance.playerInfo.isPlaying;
+    }
+
+
 
     private void OnMouseDown() {
-        OnClicked?.Invoke(info);
+        if (IsCleared()) {
+            // block
+        } else if (IsNextStep() && !IsPlaying()) {
+            // move CharacterInMap
+            GameData.Instance.playerInfo.levelIdx = info.index;
+            
+        } else if (IsCharacterOn()){
+            // readyScene
+            OnClicked?.Invoke(info);
+        } else {
+            //block
+        }
     }
 
 }

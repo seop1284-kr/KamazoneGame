@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
 public struct StepInfo {
     public Type type;
     public int index;    // monster info
@@ -32,6 +33,11 @@ public class Step : MonoBehaviour {
     public void SetInfo(Level level) {
         this.info = new StepInfo(level);
         
+        // 나중에 수정
+        if (IsPassed()) {
+            sprite.color = Color.grey;
+        }
+
         if (IsCharacterOn()) {
             sprite.color = Color.green;    
         }
@@ -48,11 +54,18 @@ public class Step : MonoBehaviour {
         displayText.text = info.type.ToString();
     }
 
+    // 나중에 삭제
+    private bool IsPassed() {
+        if (info.index < GameData.Instance.playerInfo.levelIdx) return true;
+        return false;
+    }
+
     private bool IsCleared() {
         foreach(int i in GameData.Instance.playerInfo.clearedLevelList) {
             if (info.index == i) { return true; }
         }
         return false;
+        
     }
 
     private bool IsCharacterOn() {
@@ -76,18 +89,7 @@ public class Step : MonoBehaviour {
 
 
     private void OnMouseDown() {
-        if (IsCleared()) {
-            // block
-        } else if (IsNextStep() && !IsPlaying()) {
-            // move CharacterInMap
-            GameData.Instance.playerInfo.levelIdx = info.index;
-            
-        } else if (IsCharacterOn()){
-            // readyScene
-            OnClicked?.Invoke(info);
-        } else {
-            //block
-        }
+         OnClicked?.Invoke(info);
     }
 
 }

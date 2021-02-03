@@ -12,9 +12,18 @@ public class MapScene : MonoBehaviour {
 
 
     private void Start() {
-        Step.OnClicked += OnClickStep;
+        Step.OnClicked = OnClickStep;
 
         Invoke("Entered", 0f);
+    }
+
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.C)) {
+            GameData.Instance.playerInfo.isPlaying = false;    
+            GameData.Instance.playerInfo.clearedLevelList.Add(GameData.Instance.playerInfo.levelIdx);
+            Debug.Log(GameData.Instance.playerInfo.clearedLevelList.Count);
+        }
+        InitMap();
     }
 
     private void Entered() {
@@ -56,14 +65,52 @@ public class MapScene : MonoBehaviour {
     }
 
     private void OnClickStep(StepInfo stepInfo) {
-        PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[stepInfo.index], par => {
-            if (par != null) {
-                var result = (string) par;
-                if (result == "start") {
-                    SceneManager.LoadScene("BattleScene");
+        if (IsCleared(stepInfo)) {
+            // block
+        } else if (IsNextStep(stepInfo) && !IsPlaying()) {
+            // move CharacterInMap
+            GameData.Instance.playerInfo.levelIdx = stepInfo.index;
+            GameData.Instance.playerInfo.isPlaying = true;
+        } else if (IsCharacterOn(stepInfo)){
+            // readyScene
+            PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[stepInfo.index], par => {
+                if (par != null) {
+                    var result = (string) par;
+                    if (result == "start") {
+                        SceneManager.LoadScene("BattleScene");
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            //block
+        }
+        InitMap();
+    }
+
+    // 나중에 프로퍼티로 수정
+    private bool IsCleared(StepInfo stepInfo) {
+        foreach(int i in GameData.Instance.playerInfo.clearedLevelList) {
+            if (stepInfo.index == i) { return true; }
+        }
+        return false;
+    }
+
+    private bool IsCharacterOn(StepInfo stepInfo) {
+        if (GameData.Instance.playerInfo.levelIdx == stepInfo.index) { return true; }
+        return false;
+    }
+
+    private bool IsNextStep(StepInfo stepInfo) {
+        int curStageIdx = GameData.Instance.playerInfo.stageIdx;
+        int curLevelIdx = GameData.Instance.playerInfo.levelIdx;
+        foreach(int i in GameData.Instance.stages[curStageIdx].levels[curLevelIdx].tails) {
+            if (stepInfo.index == i) { return true; }
+        }
+        return false;
+    }
+
+    private bool IsPlaying() {
+        return GameData.Instance.playerInfo.isPlaying;
     }
 
 }

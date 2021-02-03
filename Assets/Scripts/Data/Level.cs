@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 // stage = floor
 public class Stage {
 	public Level[] levels;
@@ -42,6 +44,6 @@ public class Player {
 	public Hero[] heros;	// 보유하고 있는 영웅
 	public int stageIdx;
 	public int levelIdx;
-	public int[] clearedLevelList;	// 클리어한 레벨 인덱스 리스트
+	public List<int> clearedLevelList;	// 클리어한 레벨 인덱스 리스트
 	public bool isPlaying;	// 플레이 중?
 }

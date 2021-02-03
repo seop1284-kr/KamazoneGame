@@ -21,8 +21,8 @@ public class CharacterInMap : MonoBehaviour {
         pos.y = 7.5f - level.row * 5.0f;
         pos.z = 0f;
 
-        Debug.Log(level.row + " " + level.col); // 2 1
-        Debug.Log(pos.x + " " + pos.y); // 2 1
+        // Debug.Log(level.row + " " + level.col); // 2 1
+        // Debug.Log(pos.x + " " + pos.y); // 2 1
 
         return pos;
     }

@@ -30,6 +30,13 @@ public class BoardControl : MonoSingleton<BoardControl> {
         for (int i = 0; i < level.monstersPos.Length; ++i) {
             enemyDeckCells[level.monstersPos[i]].SetInfo(GameData.Instance.monsters[level.monsters[i]]);
         }
+        
+        foreach (var heroDeckCell in heroDeckCells) {
+            heroDeckCell.Init();
+        }
+
+        currentCell = null;
+        selectedCell = null;
     }
 
     public void AddHero(HeroInfo heroInfo) {

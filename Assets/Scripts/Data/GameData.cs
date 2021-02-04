@@ -70,4 +70,10 @@ public enum Type {
     START,
     BOSS
 }
+public enum StepStatusType {
+    CHARON,
+    NEXT,
+    PASSED,
+    NORMAL
+}
 

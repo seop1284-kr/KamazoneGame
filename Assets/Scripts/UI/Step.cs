@@ -22,74 +22,50 @@ public class Step : MonoBehaviour {
     [SerializeField] private TextMeshPro displayText;
     [SerializeField] private SpriteRenderer sprite;
 
-    public static Action<StepInfo> OnClicked;
+    public static Action<Step> OnClicked;
 
     private StepInfo info;
+    private Vector3 pos;
+    public Vector3 Pos {
+        get { return gameObject.transform.position; }
+    }
+    private StepStatusType stepStatus;
+    public StepStatusType StepStatus {
+        get { return stepStatus; }
+        set { stepStatus = value; }
+    }
+    
+    public void SetInfo(Level level) {
+        this.info = new StepInfo(level);
+        displayText.text = info.type.ToString();
+
+        switch (StepStatus)
+        {
+            case StepStatusType.NORMAL:
+                sprite.color = Color.white;
+                break;
+            case StepStatusType.CHARON:
+                sprite.color = Color.green;
+                break;
+            case StepStatusType.PASSED:
+                sprite.color = Color.grey;
+                break;
+            case StepStatusType.NEXT:
+                sprite.color = Color.yellow;
+                break;
+        }
+    }
+
+    public StepInfo GetInfo() {
+        return info;
+    }
 
     public void SetActive(bool isActive) {
         gameObject.SetActive(isActive);
     }
 
-    public void SetInfo(Level level) {
-        this.info = new StepInfo(level);
-        
-        // 나중에 수정
-        if (IsPassed()) {
-            sprite.color = Color.grey;
-        }
-
-        if (IsCharacterOn()) {
-            sprite.color = Color.green;    
-        }
-
-        if (IsCleared()) {
-            sprite.color = Color.grey;
-        }
-
-        if (IsNextStep() && !IsPlaying()) {
-            sprite.color = Color.yellow;
-        }
-
-        
-        displayText.text = info.type.ToString();
-    }
-
-    // 나중에 삭제
-    private bool IsPassed() {
-        if (info.index < GameData.Instance.playerInfo.levelIdx) return true;
-        return false;
-    }
-
-    private bool IsCleared() {
-        foreach(int i in GameData.Instance.playerInfo.clearedLevelList) {
-            if (info.index == i) { return true; }
-        }
-        return false;
-        
-    }
-
-    private bool IsCharacterOn() {
-        if (GameData.Instance.playerInfo.levelIdx == info.index) { return true; }
-        return false;
-    }
-
-    private bool IsNextStep() {
-        int curStageIdx = GameData.Instance.playerInfo.stageIdx;
-        int curLevelIdx = GameData.Instance.playerInfo.levelIdx;
-        foreach(int i in GameData.Instance.stages[curStageIdx].levels[curLevelIdx].tails) {
-            if (info.index == i) { return true; }
-        }
-        return false;
-    }
-
-    private bool IsPlaying() {
-        return GameData.Instance.playerInfo.isPlaying;
-    }
-
-
-
     private void OnMouseDown() {
-         OnClicked?.Invoke(info);
+         OnClicked?.Invoke(this);
     }
 
 }

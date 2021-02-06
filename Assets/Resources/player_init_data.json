@@ -3,6 +3,7 @@
     "money": 0,
     "heros": [
         {
+            "index": 0,
             "type": 2,
             "hp": 100,
             "curHp": 100,
@@ -10,6 +11,7 @@
             "lv": 1
         },
         {
+            "index": 1,
             "type": 2,
             "hp": 100,
             "curHp": 100,

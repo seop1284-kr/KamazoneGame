@@ -18,6 +18,8 @@ public struct StepInfo {
         col = level.col;
     }
 }
+
+// MapScene에서 플레이어가 밟는 발판
 public class Step : MonoBehaviour {
     [SerializeField] private TextMeshPro displayText;
     [SerializeField] private SpriteRenderer sprite;

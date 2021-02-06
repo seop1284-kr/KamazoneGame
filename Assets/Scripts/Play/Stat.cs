@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterInfo {
+public class Stat {
 	public float hp = 10f;
 	public float speed = 0.2f;
 	public float attackInterval = 2f;

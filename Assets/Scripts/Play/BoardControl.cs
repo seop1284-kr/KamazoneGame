@@ -27,8 +27,10 @@ public class BoardControl : MonoSingleton<BoardControl> {
             enemyDeckCell.Init();
         }
         
+        // TODO: current hp가 반영된, character 정보로 셋팅하도록 수정
         for (int i = 0; i < level.monstersPos.Length; ++i) {
-            enemyDeckCells[level.monstersPos[i]].SetInfo(GameData.Instance.monsters[level.monsters[i]]);
+            var characterInfo = GameData.Instance.CharacterInfos[level.monsters[i]];
+            enemyDeckCells[level.monstersPos[i]].SetInfo(new Character(characterInfo));
         }
         
         foreach (var heroDeckCell in heroDeckCells) {
@@ -39,25 +41,24 @@ public class BoardControl : MonoSingleton<BoardControl> {
         selectedCell = null;
     }
 
-    public void AddHero(HeroInfo heroInfo) {
-        if (heroInfo.isOn) {
-            var deckCell = Array.Find(heroDeckCells, cell => cell.CellInfo?.index == heroInfo.index);
-            deckCell.Init();
-            heroInfo.isOn = false;
-            return;
-        }
-        
+    public void AddHero(ProfileCell profileCell) {
         for (int i = 0; i < MAX_HERO; ++i) {
-            if (heroDeckCells[i].CellInfo == null) {
-                heroInfo.isOn = true;
-                heroDeckCells[i].SetInfo(heroInfo);
+            if (heroDeckCells[i].CellCharacter == null) {
+                profileCell.IsOn = true;
+                heroDeckCells[i].SetInfo(profileCell.HeroInfo);
                 break;
             }
         }
     }
     
+    public void RemoveHero(ProfileCell profileCell) {
+        var deckCell = Array.Find(heroDeckCells, cell => cell.CellCharacter?.index == profileCell.HeroInfo.index);
+        deckCell.Init();
+        profileCell.IsOn = false;
+    }
+    
     public void BeginDrag(Vector2Int coord) {
-        if (this[coord].CellInfo == null) return;
+        if (this[coord].CellCharacter == null) return;
         
         selectedCell = this[coord];
         currentCell = this[coord];
@@ -70,16 +71,16 @@ public class BoardControl : MonoSingleton<BoardControl> {
 
         var newCoord = currentCell.Coord;
         this[newCoord].SetHighlight(false);
-        if (this[newCoord].CellInfo == null) {
+        if (this[newCoord].CellCharacter == null) {
             // move
-            this[newCoord].SetSell(selectedCell.CellInfo);
+            this[newCoord].SetInfo(selectedCell.CellCharacter);
             selectedCell.Init();
         } else if(newCoord != selectedCell.Coord && newCoord != selectedCell.Coord) {
             // change
-            var changeCell = this[newCoord].CellInfo;
+            var changeCell = this[newCoord].CellCharacter;
             
-            this[newCoord].SetSell(selectedCell.CellInfo);
-            selectedCell.SetSell(changeCell);
+            this[newCoord].SetInfo(selectedCell.CellCharacter);
+            selectedCell.SetInfo(changeCell);
         }
         
         selectedCell = null;

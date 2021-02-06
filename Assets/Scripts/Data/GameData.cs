@@ -7,13 +7,14 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
+// singlton -> static으로..
 public class GameData : Singleton<GameData> {
     public class Profile {
         
     }
 
     public Stage[] stages;
-    public Monster[] monsters;
+    public Dictionary<int, CharacterInfo> CharacterInfos = new Dictionary<int, CharacterInfo>();
     public Player playerInfo;
     private string dataPath = Application.persistentDataPath + "/gameData.dat";
 
@@ -31,8 +32,12 @@ public class GameData : Singleton<GameData> {
         string fileName = "monster_data";
         TextAsset textAsset = Resources.Load(fileName, typeof(TextAsset)) as TextAsset;
 
-        if (textAsset == null) { Debug.LogError(fileName + " is not found"); }
-        else { monsters = JsonReader.Deserialize<Monster[]>(textAsset.text); }
+        if (textAsset == null) { Debug.LogError(fileName + " is not found"); } else {
+            var characterInfoArray = JsonReader.Deserialize<CharacterInfo[]>(textAsset.text);
+            foreach (var characterInfo in characterInfoArray) {
+                CharacterInfos.Add(characterInfo.type, characterInfo);
+            }
+        }
     }
 
     // 플레이어 저장 데이터 가져오기

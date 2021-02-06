@@ -4,11 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 public class BattleScene : MonoBehaviour {
-    [SerializeField] private Character[] characters;
+    [SerializeField] private CharacterBase[] characters;
 
     void Start() {
         foreach (var ch in characters) {
-            ch.CharacterType = Character.Type.GUARDIAN;
+            ch.CharacterType = CharacterBase.Type.GUARDIAN;
         }
         
         GameManager.Instance.ReadyGame(characters.ToList());

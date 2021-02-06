@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager> {
-	private List<Character> characters = new List<Character>();
+	private List<CharacterBase> characters = new List<CharacterBase>();
 
 
-	public void ReadyGame(List<Character> gList) {
+	public void ReadyGame(List<CharacterBase> gList) {
 		characters = gList;
 
 		foreach (var character in characters) {
@@ -20,15 +20,15 @@ public class GameManager : MonoSingleton<GameManager> {
 		}
 	}
 
-	public Character GetCloseCharacter(Character ch) {
-		var chType = (ch.CharacterType == Character.Type.GUARDIAN) ? Character.Type.ENEMY : Character.Type.GUARDIAN;
+	public CharacterBase GetCloseCharacter(CharacterBase ch) {
+		var chType = (ch.CharacterType == CharacterBase.Type.GUARDIAN) ? CharacterBase.Type.ENEMY : CharacterBase.Type.GUARDIAN;
 		
 		return GetCloseCharacter(ch, chType);
 	}
 
-	private Character GetCloseCharacter(Character ch, Character.Type chType) {
+	private CharacterBase GetCloseCharacter(CharacterBase ch, CharacterBase.Type chType) {
 		float dis = Mathf.Infinity;
-		Character closeCharacter = null;
+		CharacterBase closeCharacter = null;
 		
 		foreach (var character in characters) {
 			if (character.CharacterType != chType) continue;
@@ -43,7 +43,7 @@ public class GameManager : MonoSingleton<GameManager> {
 		return closeCharacter;
 	}
 
-	public void Attack(Character to, float dmg) {
+	public void Attack(CharacterBase to, float dmg) {
 		to.AttackedFromOther(dmg);
 	}
 

@@ -11,7 +11,7 @@ public class ProfileControl : MonoBehaviour
     [SerializeField] private TextMeshProUGUI heroExplain;
     [SerializeField] private TextMeshProUGUI addButtonText;
 
-    private HeroInfo selectedHero;
+    private ProfileCell selectedHero;
 
     public void Init() {
         foreach (var heroProfileCell in heroProfileCells) {
@@ -24,20 +24,24 @@ public class ProfileControl : MonoBehaviour
             heroProfileCells[i].SetInfo(GameData.Instance.playerInfo.heros[i], i);
         }
         
-        OnClickProfile(heroProfileCells[0].HeroInfo);
+        OnClickProfile(heroProfileCells[0]);
     }
 
-    public void OnClickProfile(HeroInfo heroinfo) {
-        heroExplain.text = heroinfo.name;
-        selectedHero = heroinfo;
-        addButtonText.text = heroinfo.isOn ? "Remove" : "Add";
+    public void OnClickProfile(ProfileCell profileCell) {
+        heroExplain.text = GameData.Instance.CharacterInfos[profileCell.HeroInfo.type].name;
+        selectedHero = profileCell;
+        addButtonText.text = profileCell.IsOn ? "Remove" : "Add";
     }
 
     public void OnClickAdd() {
         if (selectedHero == null) return;
+
+        if (!selectedHero.IsOn) {
+            BoardControl.Instance.AddHero(selectedHero);
+        } else {
+            BoardControl.Instance.RemoveHero(selectedHero);
+        }
         
-        BoardControl.Instance.AddHero(selectedHero);
-        
-        addButtonText.text = selectedHero.isOn ? "Remove" : "Add";
+        addButtonText.text = selectedHero.IsOn ? "Remove" : "Add";
     }
 }

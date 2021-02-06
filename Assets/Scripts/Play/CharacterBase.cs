@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Character : MonoBehaviour {
+public class CharacterBase : MonoBehaviour {
     [SerializeField] private Animator animator;
     [SerializeField] private TextMeshPro display;
     [SerializeField] private Type _characterType;
@@ -28,9 +28,9 @@ public class Character : MonoBehaviour {
     public Type CharacterType { get; set; }
     
     private Status status = Status.IDLE;
-    private Character targetCharacter;
+    private CharacterBase targetCharacter;
 
-    private CharacterInfo characterInfo = new CharacterInfo();
+    private Stat characterInfo = new Stat();
 
     private float attackGuage = 0f;
     private float targetDetectTime = 0f;

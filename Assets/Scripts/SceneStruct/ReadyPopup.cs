@@ -17,7 +17,9 @@ public class ReadyPopup : PopupBase {
     }
     
     public void OnClickStart() {
-        PopupManager.Instance.Close("start");
+        BoardControl.Instance.SaveDeckCellInfos(CharacterBase.Type.GUARDIAN);
+        BoardControl.Instance.SaveDeckCellInfos(CharacterBase.Type.ENEMY);
         
+        PopupManager.Instance.Close("start");
     }
 }

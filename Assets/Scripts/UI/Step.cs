@@ -28,9 +28,10 @@ public class Step : MonoBehaviour {
 
     private StepInfo info;
     private Vector3 pos;
-    public Vector3 Pos {
-        get { return gameObject.transform.position; }
-    }
+    
+    public Vector3 Pos => gameObject.transform.position;
+    public int Index => info.index;
+
     private StepStatusType stepStatus;
     public StepStatusType StepStatus {
         get { return stepStatus; }

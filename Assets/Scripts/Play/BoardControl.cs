@@ -12,8 +12,9 @@ public class BoardControl : MonoSingleton<BoardControl> {
 
     private DeckCell selectedCell;
     private DeckCell currentCell;
-
+    
     private void Start() {
+        DontDestroyOnLoad(this);
         for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; ++i) {
             heroDeckCells[i].SetCoord(i);
         }
@@ -21,7 +22,25 @@ public class BoardControl : MonoSingleton<BoardControl> {
             enemyDeckCells[i].SetCoord(i);
         }
     }
+    
+    public void SaveDeckCellInfos(CharacterBase.Type type) {
+        List<DeckCell.DeckCellInfo> deckCellInfos = new List<DeckCell.DeckCellInfo>();
 
+        var deckCells = (type == CharacterBase.Type.GUARDIAN) ? heroDeckCells : enemyDeckCells;
+        
+        foreach (var heroDeck in deckCells) {
+            if (heroDeck.CellCharacter != null) {
+                deckCellInfos.Add(heroDeck.deckCellInfo);
+            }
+        }
+
+        if (type == CharacterBase.Type.GUARDIAN) {
+            GameManager.heroCharacters = deckCellInfos;
+        } else {
+            GameManager.enemyCharacters = deckCellInfos;
+        }
+    }
+    
     public void InitBoard(Level level) {
         foreach (var enemyDeckCell in enemyDeckCells) {
             enemyDeckCell.Init();

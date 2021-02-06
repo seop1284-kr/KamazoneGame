@@ -11,19 +11,26 @@ public class DeckCell : MonoBehaviour {
     [SerializeField] private MoveableCell cell;
     [SerializeField] private Image image;
 
-    public Character CellCharacter { get; private set; }
+    public class DeckCellInfo {
+        public Character Character;
+        public Vector2Int Coord;
+    }
+    
+    public DeckCellInfo deckCellInfo = new DeckCellInfo();
 
-    public Vector2Int Coord => coord;
-    private Vector2Int coord;
+    public Character CellCharacter => deckCellInfo.Character;
+
+    public Vector2Int Coord => deckCellInfo.Coord;
+    // private Vector2Int coord;
 
     public void SetCoord(int idx) {
-        coord.x = idx / 5;
-        coord.y = idx % 5;
-        cell.Coord = coord;
+        deckCellInfo.Coord.x = idx / 5;
+        deckCellInfo.Coord.y = idx % 5;
+        cell.Coord = deckCellInfo.Coord;
     }
 
     public void Init() {
-        CellCharacter = null;
+        deckCellInfo.Character = null;
         displayText.text = "";
         
     }
@@ -32,13 +39,13 @@ public class DeckCell : MonoBehaviour {
         if (character == null) {
             displayText.text = "";
         } else {
-            CellCharacter = character;
+            deckCellInfo.Character = character;
             displayText.text = GameData.Instance.CharacterInfos[character.type].name;
         }
     }
 
     public void SetSelect(Character character) {
-        CellCharacter = character;
+        deckCellInfo.Character = character;
     }
 
     public void SetHighlight(bool isActive) {

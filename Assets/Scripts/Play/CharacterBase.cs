@@ -7,7 +7,7 @@ using UnityEngine;
 public class CharacterBase : MonoBehaviour {
     [SerializeField] private Animator animator;
     [SerializeField] private TextMeshPro display;
-    [SerializeField] private Type _characterType;
+    //[SerializeField] private Type _characterType;
     [SerializeField] private SpriteRenderer hpBar;
     
     public enum Type {
@@ -25,7 +25,8 @@ public class CharacterBase : MonoBehaviour {
 
     private const float TargetDetectInterval = 1f;
 
-    public Type CharacterType { get; set; }
+    public Type CharacterType { get; private set; }
+    private Character character;
     
     private Status status = Status.IDLE;
     private CharacterBase targetCharacter;
@@ -46,14 +47,23 @@ public class CharacterBase : MonoBehaviour {
     private static readonly int Progress = Shader.PropertyToID("Progress");
     //private static readonly int Attack1 = Animator.StringToHash("Attack");
 
-    public void SetInfo() {
-        CharacterType = _characterType;
+    public void SetInfo(Character character, Type type) {
+        this.character = character;
+        CharacterType = type;
     }
+    
+    // public void SetInfo() {
+    //     CharacterType = _characterType;
+    // }
 
     public void Init() {
         animator.Play("Idle");
         attackGuage = characterInfo.attackInterval;
         targetDetectTime = TargetDetectInterval;
+    }
+
+    public void SetPosition(Vector2Int coord) {
+        transform.localPosition = new Vector3(coord.x * GameManager.CELL_OFFSET, -coord.y * GameManager.CELL_OFFSET + 5f, 0f);
     }
 
     private void Update() {

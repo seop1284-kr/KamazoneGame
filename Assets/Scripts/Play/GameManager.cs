@@ -3,15 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager> {
+	[SerializeField] private Transform HeroCharacterRoot;
+	[SerializeField] private Transform EnemyCharacterRoot;
+	
 	private List<CharacterBase> characters = new List<CharacterBase>();
+	
+	public const float CELL_OFFSET = 2.5f;
 
+	public static List<DeckCell.DeckCellInfo> heroCharacters;
+	public static List<DeckCell.DeckCellInfo> enemyCharacters;
 
-	public void ReadyGame(List<CharacterBase> gList) {
-		characters = gList;
-
-		foreach (var character in characters) {
-			character.SetInfo();
+	public void SetupBoard() {
+		// var heroCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.GUARDIAN);
+		
+		foreach (var character in heroCharacters) {
+			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Character");
+			var characterBasePrefab = GameObject.Instantiate(characterBase, HeroCharacterRoot);
+			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.GUARDIAN);
+			characterBasePrefab.SetPosition(character.Coord);
+			characters.Add(characterBasePrefab);
 		}
+
+		// var enemyCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.ENEMY);
+		
+		foreach (var character in enemyCharacters) {
+			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Character");
+			var characterBasePrefab = GameObject.Instantiate(characterBase, EnemyCharacterRoot);
+			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.GUARDIAN);
+			characterBasePrefab.SetPosition(character.Coord);
+			characters.Add(characterBasePrefab);
+		}
+	}
+	
+	public void ReadyGame() {
+		SetupBoard();
 	}
 	
 	public void StartGame() {

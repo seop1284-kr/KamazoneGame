@@ -64,9 +64,9 @@ public class MapScene : MonoBehaviour {
                 step.SetActive(true);
                 step.StepStatus = CheckStepType(level);
                 step.SetInfo(level);
-                
             }
         }
+
         // 캐릭터 이동
         character.Set(CheckCharPos());
 

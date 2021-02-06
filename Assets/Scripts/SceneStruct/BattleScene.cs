@@ -8,10 +8,10 @@ public class BattleScene : MonoBehaviour {
 
     void Start() {
         foreach (var ch in characters) {
-            ch.CharacterType = CharacterBase.Type.GUARDIAN;
+            //ch.CharacterType = CharacterBase.Type.GUARDIAN;
         }
         
-        GameManager.Instance.ReadyGame(characters.ToList());
+        GameManager.Instance.ReadyGame();
         GameManager.Instance.StartGame();
     }
 

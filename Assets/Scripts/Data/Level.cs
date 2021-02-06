@@ -39,6 +39,10 @@ public class Character {
     public int str;
 	public int lv;
 
+	public Character() {
+		
+	}
+	
 	public Character(CharacterInfo characterInfo) {
 		index = -1;
 		type = characterInfo.type;

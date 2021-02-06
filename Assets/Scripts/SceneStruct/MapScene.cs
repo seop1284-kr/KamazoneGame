@@ -22,6 +22,11 @@ public class MapScene : MonoBehaviour {
             GameData.Instance.playerInfo.clearedLevelList.Add(GameData.Instance.playerInfo.levelIdx);
             Debug.Log(GameData.Instance.playerInfo.clearedLevelList.Count);
         }
+        
+        if(Input.GetKeyDown(KeyCode.R)) {
+            PlayerPrefs.DeleteAll();
+        }
+        
         InitMap();
     }
 

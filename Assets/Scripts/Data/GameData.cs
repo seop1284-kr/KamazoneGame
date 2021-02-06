@@ -58,10 +58,10 @@ public class GameData : Singleton<GameData> {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(dataPath);
 
-        if (textAsset == null) { Debug.LogError(fileName + " is not found"); }
-        else {
-            Player player = new Player();
-            player = JsonReader.Deserialize<Player>(textAsset.text);
+        if (textAsset == null) {
+            Debug.LogError(fileName + " is not found");
+        } else {
+            Player player = JsonReader.Deserialize<Player>(textAsset.text);
             bf.Serialize(file, player);
             file.Close();
         }

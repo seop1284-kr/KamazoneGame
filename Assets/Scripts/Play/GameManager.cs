@@ -29,7 +29,7 @@ public class GameManager : MonoSingleton<GameManager> {
 		foreach (var character in enemyCharacters) {
 			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Character");
 			var characterBasePrefab = GameObject.Instantiate(characterBase, EnemyCharacterRoot);
-			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.GUARDIAN);
+			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.ENEMY);
 			characterBasePrefab.SetPosition(character.Coord);
 			characters.Add(characterBasePrefab);
 		}

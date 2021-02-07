@@ -19,7 +19,6 @@ public class CharacterBase : MonoBehaviour {
         IDLE,
         CHASE,
         ATTACK,
-        ATTACKED,
         DIE,
     }
 
@@ -40,11 +39,10 @@ public class CharacterBase : MonoBehaviour {
         {Status.IDLE, Animator.StringToHash("Idle")},
         {Status.CHASE, Animator.StringToHash("Chase")},
         {Status.ATTACK, Animator.StringToHash("Attack")},
-        {Status.ATTACKED, Animator.StringToHash("Attacked")},
         {Status.DIE, Animator.StringToHash("Die")},
     };
 
-    private static readonly int Progress = Shader.PropertyToID("Progress");
+    private static readonly int Progress = Shader.PropertyToID("_Progress");
     //private static readonly int Attack1 = Animator.StringToHash("Attack");
 
     public void SetInfo(Character character, Type type) {
@@ -60,6 +58,7 @@ public class CharacterBase : MonoBehaviour {
         animator.Play("Idle");
         attackGuage = characterInfo.attackInterval;
         targetDetectTime = TargetDetectInterval;
+        RefreshHp();
     }
 
     public void SetPosition(Vector2Int coord) {
@@ -122,27 +121,31 @@ public class CharacterBase : MonoBehaviour {
         attackGuage = characterInfo.attackInterval;
     }
 
-    private void Damage() {
-        Debug.LogError("DAMAGE");
+    // animation event
+    private void GiveDamage() {
         GameManager.Instance.Attack(targetCharacter, characterInfo.attackPower);
     }
 
+    // animation event
+    private void FinishAttack() {
+        ChangeStatus(Status.IDLE);
+    }
+
     public void AttackedFromOther(float dmg) {
-        ChangeStatus(Status.ATTACKED);
         characterInfo.hp -= dmg;
-        hpBar.material.SetFloat(Progress, characterInfo.hp / 10f);
+        RefreshHp();
         if (characterInfo.hp <= 0) {
             ChangeStatus(Status.DIE);
         }
     }
 
+    private void RefreshHp() {
+        hpBar.material.SetFloat(Progress, characterInfo.hp / 10f);
+    }
+
     private void ChangeStatus(Status s) {
         status = s;
         animator.SetTrigger(animationHash[status]);
-    }
-
-    private void HI() {
-        Debug.LogError("HI");
     }
     
 }

@@ -28,8 +28,8 @@
                 "col": 1,
                 "type": "BATTLE",
                 "tails": [3],
-                "monsters": [0, 0, 0],
-                "monstersPos": [4, 5, 6]
+                "monsters": [0],
+                "monstersPos": [4]
             },
             {
                 "index": 3,

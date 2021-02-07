@@ -21,6 +21,7 @@ public class MapScene : MonoBehaviour {
             GameData.Instance.playerInfo.isPlaying = false;    
             GameData.Instance.playerInfo.clearedLevelList.Add(GameData.Instance.playerInfo.levelIdx);
             Debug.Log(GameData.Instance.playerInfo.clearedLevelList.Count);
+            GameData.Instance.playerInfo.monsters.Clear();
         }
         
         if(Input.GetKeyDown(KeyCode.R)) {
@@ -156,4 +157,5 @@ public class MapScene : MonoBehaviour {
         return false;
     }
 
+  
 }

@@ -57,9 +57,10 @@ public class Character {
 public class Player {
 	public string name;
 	public int money;
-	public Character[] heros;	// 보유하고 있는 영웅
+	public Character[] heros;	// 보유하고 있는 영웅들
 	public int stageIdx;
 	public int levelIdx;
 	public List<int> clearedLevelList;	// 클리어한 레벨 인덱스 리스트
+	public List<Character> monsters;	// 현재 상대하고 있는 몬스터들
 	public bool isPlaying;	// 플레이 중?
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BoardControl : MonoSingleton<BoardControl> {
     [SerializeField] private DeckCell[] heroDeckCells;
@@ -45,13 +46,23 @@ public class BoardControl : MonoSingleton<BoardControl> {
         foreach (var enemyDeckCell in enemyDeckCells) {
             enemyDeckCell.Init();
         }
-        
-        // TODO: current hp가 반영된, character 정보로 셋팅하도록 수정
-        for (int i = 0; i < level.monstersPos.Length; ++i) {
-            var characterInfo = GameData.Instance.CharacterInfos[level.monsters[i]];
-            enemyDeckCells[level.monstersPos[i]].SetInfo(new Character(characterInfo));
+        // 플레이어 저장 데이터에 현재 전투 중인 몬스터 정보가 없으면 새로 저장, 덱 셀에 입력
+        if (!GameData.Instance.playerInfo.monsters.Any()) {
+            for (int i = 0; i < level.monstersPos.Length; ++i) {
+                var characterInfo = GameData.Instance.CharacterInfos[level.monsters[i]];
+                Character character = new Character(characterInfo);
+                GameData.Instance.playerInfo.monsters.Add(character);
+                enemyDeckCells[level.monstersPos[i]].SetInfo(character);
+            }
+        } else {
+            // TODO: current hp가 반영된, character 정보로 셋팅하도록 수정
+            // 덱 셀에 입력
+            for (int i = 0; i < level.monstersPos.Length; ++i) {
+                Character character = GameData.Instance.playerInfo.monsters[i];
+                enemyDeckCells[level.monstersPos[i]].SetInfo(character);
+            }
         }
-        
+
         foreach (var heroDeckCell in heroDeckCells) {
             heroDeckCell.Init();
         }

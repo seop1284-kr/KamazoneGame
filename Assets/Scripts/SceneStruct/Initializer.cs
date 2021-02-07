@@ -15,4 +15,18 @@ public class Initializer : MonoBehaviour {
         GameData.Instance.LoadPlayerData();
         DontDestroyOnLoad(this);
     }
+
+    // 게임 종료
+    void OnApplicationQuit() {
+        Debug.Log("game quit");
+        GameData.Instance.SavePlayerData();
+
+    }
+    // 게임 일시정지
+    void OnApplicationPause() {
+        Debug.Log("game pause");
+        GameData.Instance.SavePlayerData();
+
+    }
+
 }

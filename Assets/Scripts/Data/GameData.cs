@@ -40,12 +40,19 @@ public class GameData : Singleton<GameData> {
         }
     }
 
+    // 플레이어 데이터 저장하기
+    public void SavePlayerData() {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(dataPath);
+        bf.Serialize(file, playerInfo);
+        file.Close();
+    }
+
     // 플레이어 저장 데이터 가져오기
     public void LoadPlayerData() {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(dataPath, FileMode.Open);
         playerInfo = (Player)bf.Deserialize(file);
-        // cheat
         file.Close();
     }
 

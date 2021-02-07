@@ -23,6 +23,7 @@
     "stageIdx": 0,
     "levelIdx": 0,
     "clearedLevelList": [],
-    "isPlaying": true
+    "isPlaying": true,
+    "monsters": []
 }
 

@@ -9,6 +9,8 @@ public class CharacterBase : MonoBehaviour {
     [SerializeField] private TextMeshPro display;
     //[SerializeField] private Type _characterType;
     [SerializeField] private SpriteRenderer hpBar;
+
+    [SerializeField] private EventDispatcher eventDispatcher;
     
     public enum Type {
         GUARDIAN,
@@ -53,6 +55,10 @@ public class CharacterBase : MonoBehaviour {
     // public void SetInfo() {
     //     CharacterType = _characterType;
     // }
+
+    private void Start() {
+        eventDispatcher.EventCallback += HandleEvent;
+    }
 
     public void Init() {
         animator.Play("Idle");
@@ -121,15 +127,23 @@ public class CharacterBase : MonoBehaviour {
         attackGuage = characterInfo.attackInterval;
     }
 
-    // animation event
-    private void GiveDamage() {
-        GameManager.Instance.Attack(targetCharacter, characterInfo.attackPower);
+    public void HandleEvent(string eventName) {
+        if (eventName == "GiveDamage") {
+            GameManager.Instance.Attack(targetCharacter, characterInfo.attackPower);
+        } else if (eventName == "FinishAttack") {
+            ChangeStatus(Status.IDLE);
+        }
     }
 
-    // animation event
-    private void FinishAttack() {
-        ChangeStatus(Status.IDLE);
-    }
+    // // animation event
+    // private void GiveDamage() {
+    //     GameManager.Instance.Attack(targetCharacter, characterInfo.attackPower);
+    // }
+    //
+    // // animation event
+    // private void FinishAttack() {
+    //     ChangeStatus(Status.IDLE);
+    // }
 
     public void AttackedFromOther(float dmg) {
         characterInfo.hp -= dmg;

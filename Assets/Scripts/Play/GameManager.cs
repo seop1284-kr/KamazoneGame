@@ -17,7 +17,7 @@ public class GameManager : MonoSingleton<GameManager> {
 		// var heroCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.GUARDIAN);
 		
 		foreach (var character in heroCharacters) {
-			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Character");
+			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Hero");
 			var characterBasePrefab = GameObject.Instantiate(characterBase, HeroCharacterRoot);
 			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.GUARDIAN);
 			characterBasePrefab.SetPosition(character.Coord);
@@ -27,7 +27,7 @@ public class GameManager : MonoSingleton<GameManager> {
 		// var enemyCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.ENEMY);
 		
 		foreach (var character in enemyCharacters) {
-			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Character");
+			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Enemy");
 			var characterBasePrefab = GameObject.Instantiate(characterBase, EnemyCharacterRoot);
 			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.ENEMY);
 			characterBasePrefab.SetPosition(character.Coord);

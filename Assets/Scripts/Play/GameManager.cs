@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager> {
+	public enum GAMEOVER_TYPE {
+		WIN,
+		LOSE,
+		NONE
+	}
 	[SerializeField] private Transform HeroCharacterRoot;
 	[SerializeField] private Transform EnemyCharacterRoot;
 	
@@ -12,6 +18,8 @@ public class GameManager : MonoSingleton<GameManager> {
 
 	public static List<DeckCell.DeckCellInfo> heroCharacters;
 	public static List<DeckCell.DeckCellInfo> enemyCharacters;
+	
+	public GAMEOVER_TYPE GameoverType { get; private set; }
 
 	public void SetupBoard() {
 		// var heroCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.GUARDIAN);
@@ -36,6 +44,7 @@ public class GameManager : MonoSingleton<GameManager> {
 	}
 	
 	public void ReadyGame() {
+		GameoverType = GAMEOVER_TYPE.NONE;
 		SetupBoard();
 	}
 	
@@ -57,6 +66,7 @@ public class GameManager : MonoSingleton<GameManager> {
 		
 		foreach (var character in characters) {
 			if (character.CharacterType != chType) continue;
+			if (character.IsDead) continue;
 			
 			var disPos = ch.transform.position - character.transform.position;
 			if (Mathf.Abs(disPos.magnitude) < dis) {
@@ -69,7 +79,50 @@ public class GameManager : MonoSingleton<GameManager> {
 	}
 
 	public void Attack(CharacterBase to, float dmg) {
+		// TODO: 공격 못하고, 초기화?
+		if (to.IsDead) return;
+		
 		to.AttackedFromOther(dmg);
+	}
+
+	public void Disappear(CharacterBase disappearCharacter) {
+		if (GameoverType != GAMEOVER_TYPE.NONE) return;
+		
+		GameoverType = CheckGameEnd();
+		
+		if (GameoverType != GAMEOVER_TYPE.NONE) {
+			GameOver();
+		}
+	}
+
+	private void GameOver() {
+		// save data
+		GameData.Instance.StepClear();
+		
+		// result popup
+		bool isWin = GameoverType == GAMEOVER_TYPE.WIN;
+		PopupManager.Instance.Show("ResultPopup", isWin, param => { SceneManager.LoadScene("MapScene"); });
+		
+		// character animation
+		foreach (var character in characters) {
+			character.GameOver();
+		}
+	}
+
+	private GAMEOVER_TYPE CheckGameEnd() {
+		bool isAllHeroDead = true;
+		bool isAllEnemyDead = true;
+		
+		foreach (var character in characters) {
+			if (!character.IsDead) {
+				if (character.CharacterType == CharacterBase.Type.ENEMY) isAllEnemyDead = false;
+				else isAllHeroDead = false;
+			}
+		}
+
+		if (isAllEnemyDead && !isAllHeroDead) return GAMEOVER_TYPE.WIN;
+		if (isAllHeroDead && !isAllEnemyDead) return GAMEOVER_TYPE.LOSE;
+		return GAMEOVER_TYPE.NONE;
 	}
 
 }

@@ -44,6 +44,9 @@ TagManager:
   - name: Play
     uniqueID: 741390635
     locked: 0
+  - name: InGameOverlay
+    uniqueID: 2494618927
+    locked: 0
   - name: PopUp
     uniqueID: 2298305101
     locked: 0

@@ -22,17 +22,23 @@ public class CharacterBase : MonoBehaviour {
         CHASE,
         ATTACK,
         DIE,
+        DISAPPEAR,
+        SIT,
     }
 
     private const float TargetDetectInterval = 1f;
 
     public Type CharacterType { get; private set; }
     private Character character;
-    
+
+    public Status CurStatus => status;
     private Status status = Status.IDLE;
     private CharacterBase targetCharacter;
 
     private Stat characterInfo = new Stat();
+
+    public bool IsDead => isDead;
+    private bool isDead = false;
 
     private float attackGuage = 0f;
     private float targetDetectTime = 0f;
@@ -42,6 +48,8 @@ public class CharacterBase : MonoBehaviour {
         {Status.CHASE, Animator.StringToHash("Chase")},
         {Status.ATTACK, Animator.StringToHash("Attack")},
         {Status.DIE, Animator.StringToHash("Die")},
+        {Status.DISAPPEAR, Animator.StringToHash("Disappear")},
+        {Status.SIT, Animator.StringToHash("Sit")},
     };
 
     private static readonly int Progress = Shader.PropertyToID("_Progress");
@@ -72,6 +80,8 @@ public class CharacterBase : MonoBehaviour {
     }
 
     private void Update() {
+        if (GameManager.Instance.GameoverType != GameManager.GAMEOVER_TYPE.NONE) return;
+        
         display.text = status.ToString()[0].ToString();
         attackGuage -= Time.deltaTime;
 
@@ -111,6 +121,9 @@ public class CharacterBase : MonoBehaviour {
             case Status.ATTACK:
                 // damage 체크
                 break;
+            case Status.DIE:
+                // die.....
+                break;
         }
     }
 
@@ -132,6 +145,9 @@ public class CharacterBase : MonoBehaviour {
             GameManager.Instance.Attack(targetCharacter, characterInfo.attackPower);
         } else if (eventName == "FinishAttack") {
             ChangeStatus(Status.IDLE);
+        } else if (eventName == "Disappear") {
+            ChangeStatus(Status.DISAPPEAR);
+            GameManager.Instance.Disappear(this);
         }
     }
 
@@ -150,7 +166,12 @@ public class CharacterBase : MonoBehaviour {
         RefreshHp();
         if (characterInfo.hp <= 0) {
             ChangeStatus(Status.DIE);
+            isDead = true;
         }
+    }
+
+    public void GameOver() {
+        ChangeStatus(Status.SIT);
     }
 
     private void RefreshHp() {

@@ -7,26 +7,23 @@ public class Initializer : MonoBehaviour {
     private static bool isCalled = false;
    
     void Start() {
-        if (isCalled) return;
-
-        isCalled = true;
-        GameData.Instance.LoadStageData();
         GameData.Instance.LoadMonsterData();
+        GameData.Instance.LoadStageData();
         GameData.Instance.LoadPlayerData();
         DontDestroyOnLoad(this);
     }
 
-    // // 게임 종료
-    // void OnApplicationQuit() {
-    //     Debug.Log("game quit");
-    //     GameData.Instance.SavePlayerData();
+    // 게임 종료
+    void OnApplicationQuit() {
+        Debug.Log("game quit");
+        GameData.Instance.SavePlayerData();
 
-    // }
-    // // 게임 일시정지
-    // void OnApplicationPause() {
-    //     Debug.Log("game pause");
-    //     GameData.Instance.SavePlayerData();
+    }
+    // 게임 일시정지
+    void OnApplicationPause() {
+        Debug.Log("game pause");
+        GameData.Instance.SavePlayerData();
 
-    // }
+    }
 
 }

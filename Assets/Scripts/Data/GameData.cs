@@ -4,6 +4,7 @@ using UnityEngine;
 
 using JsonFx.Json;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
@@ -32,9 +33,12 @@ public class GameData : Singleton<GameData> {
         string fileName = "monster_data";
         TextAsset textAsset = Resources.Load(fileName, typeof(TextAsset)) as TextAsset;
 
-        if (textAsset == null) { Debug.LogError(fileName + " is not found"); } else {
+        if (textAsset == null) {
+            Debug.LogError(fileName + " is not found");
+        } else {
             var characterInfoArray = JsonReader.Deserialize<CharacterInfo[]>(textAsset.text);
             foreach (var characterInfo in characterInfoArray) {
+                if (CharacterInfos.ContainsKey(characterInfo.type)) continue;
                 CharacterInfos.Add(characterInfo.type, characterInfo);
             }
         }

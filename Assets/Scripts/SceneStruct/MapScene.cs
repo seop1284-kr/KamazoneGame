@@ -18,17 +18,16 @@ public class MapScene : MonoBehaviour {
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.C)) {
-            GameData.Instance.playerInfo.isPlaying = false;    
-            GameData.Instance.playerInfo.clearedLevelList.Add(GameData.Instance.playerInfo.levelIdx);
-            Debug.Log(GameData.Instance.playerInfo.clearedLevelList.Count);
-            GameData.Instance.playerInfo.monsters.Clear();
+            GameData.Instance.StepClear();
+            InitMap();
         }
         
         if(Input.GetKeyDown(KeyCode.R)) {
             PlayerPrefs.DeleteAll();
+            InitMap();
         }
         
-        InitMap();
+       
     }
 
     private void Entered() {
@@ -78,16 +77,46 @@ public class MapScene : MonoBehaviour {
         switch (step.StepStatus)
         {
             case StepStatusType.CHARON:
-                // readyScene
-                PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[0].levels[step.GetInfo().index], par => {
-                    if (par != null) {
-                        var result = (string) par;
-                        if (result == "start") {
-                            SceneManager.LoadScene("BattleScene");
-                        }
-                    }
-                });
+                switch (step.GetInfo().type)
+                {
+                    case Type.START:
+                        // start step
+                        PopupManager.Instance.Show("StoryPopup", GameData.Instance.stages[GameData.Instance.playerInfo.stageIdx], par => {
+                            if (par != null) {
+                                var result = (string) par;
+                                if (result == "ok") {
+                                    GameData.Instance.StepClear();
+                                    InitMap();
+                                }
+                            }
+                        });
+                        break;
+                    case Type.SHOP:
+                        // shop step
+                        break;
+                    case Type.BATTLE:
+                        // battle step - readypopup
+                        PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[GameData.Instance.playerInfo.stageIdx].levels[step.GetInfo().index], par => {
+                            if (par != null) {
+                                var result = (string) par;
+                                if (result == "start") {
+                                    SceneManager.LoadScene("BattleScene");
+                                }
+                            }
+                        });
+                        break;
+
+                    case Type.BOSS:
+                        // boss step
+                        
+                        break;
+                    case Type.QUESTION:
+                        // question step
+                        break;
+
+                }
                 break;
+                
             case StepStatusType.NEXT:
                 // move CharacterInMap
                 if (!GameData.Instance.playerInfo.isPlaying) {

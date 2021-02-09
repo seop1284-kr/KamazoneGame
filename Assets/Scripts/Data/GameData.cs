@@ -43,7 +43,7 @@ public class GameData : Singleton<GameData> {
     // 플레이어 데이터 저장하기
     public void SavePlayerData() {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(dataPath);
+        FileStream file = File.Open(dataPath, FileMode.Open);
         bf.Serialize(file, playerInfo);
         file.Close();
     }
@@ -72,6 +72,13 @@ public class GameData : Singleton<GameData> {
             bf.Serialize(file, player);
             file.Close();
         }
+    }
+
+    // 스텝 클리어시 데이터 처리
+    public void StepClear() {
+        playerInfo.isPlaying = false;
+        playerInfo.clearedLevelList.Add(playerInfo.levelIdx);
+        playerInfo.monsters.Clear();
     }
 }
 

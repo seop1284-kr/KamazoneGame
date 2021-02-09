@@ -5,6 +5,7 @@ public class Stage {
 	public Level[] levels;
 	public int index;
 	public string name;
+	public string story;
 
 }
 

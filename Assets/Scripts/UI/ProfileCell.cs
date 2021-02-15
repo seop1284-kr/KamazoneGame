@@ -17,6 +17,8 @@ public class ProfileCell : MonoBehaviour {
     public void SetInfo(Character hero, int index = -1) {
         if (hero == null) {
             displayText.text = "";
+            IsOn = false;
+            heroInfo = null;
         } else {
             heroInfo = hero;
             displayText.text = GameData.Instance.CharacterInfos[heroInfo.type].name;

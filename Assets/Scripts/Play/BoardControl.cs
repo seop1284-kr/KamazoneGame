@@ -132,5 +132,5 @@ public class BoardControl : MonoSingleton<BoardControl> {
         }
     }
     
-    public DeckCell this[Vector2Int coord] => heroDeckCells[coord.x * BOARD_SIZE + coord.y];
+    public DeckCell this[Vector2Int coord] => heroDeckCells[coord.x + coord.y * BOARD_SIZE];
 }

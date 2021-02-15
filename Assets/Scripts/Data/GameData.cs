@@ -16,7 +16,7 @@ public class GameData : Singleton<GameData> {
 
     public Stage[] stages;
     public Dictionary<int, CharacterInfo> CharacterInfos = new Dictionary<int, CharacterInfo>();
-    public Player playerInfo;
+    public Player playerInfo = null;
     private string dataPath = Application.persistentDataPath + "/gameData.dat";
 
     // 스테이지 데이터 가져오기
@@ -46,6 +46,8 @@ public class GameData : Singleton<GameData> {
 
     // 플레이어 데이터 저장하기
     public void SavePlayerData() {
+        if (playerInfo == null) return;
+        
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(dataPath, FileMode.Open);
         bf.Serialize(file, playerInfo);
@@ -80,9 +82,9 @@ public class GameData : Singleton<GameData> {
 
     // 스텝 클리어시 데이터 처리
     public void StepClear() {
-        playerInfo.isPlaying = false;
-        playerInfo.clearedLevelList.Add(playerInfo.levelIdx);
-        playerInfo.monsters.Clear();
+        GameData.Instance.playerInfo.isPlaying = false;
+        GameData.Instance.playerInfo.clearedLevelList.Add(playerInfo.levelIdx);
+        GameData.Instance.playerInfo.monsters.Clear();
     }
 }
 

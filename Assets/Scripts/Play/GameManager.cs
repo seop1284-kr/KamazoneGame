@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum GAMEOVER_TYPE {
+	WIN,
+	LOSE,
+	NONE
+}
+
 public class GameManager : MonoSingleton<GameManager> {
-	public enum GAMEOVER_TYPE {
-		WIN,
-		LOSE,
-		NONE
-	}
-	[SerializeField] private Transform HeroCharacterRoot;
-	[SerializeField] private Transform EnemyCharacterRoot;
+	
+	private Transform HeroCharacterRoot;
+	private Transform EnemyCharacterRoot;
+
+	public System.Action<GAMEOVER_TYPE> OnGameOver;
 	
 	private List<CharacterBase> characters = new List<CharacterBase>();
 	
@@ -42,8 +46,21 @@ public class GameManager : MonoSingleton<GameManager> {
 			characters.Add(characterBasePrefab);
 		}
 	}
+
+	private void Init() {
+		foreach (var character in characters) {
+			Destroy(character);
+		}
+		characters.Clear();
+	}
+
+	public void Init(Transform heroRoot, Transform enemyRoot) {
+		HeroCharacterRoot = heroRoot;
+		EnemyCharacterRoot = enemyRoot;
+	}
 	
 	public void ReadyGame() {
+		Init();
 		GameoverType = GAMEOVER_TYPE.NONE;
 		SetupBoard();
 	}
@@ -100,9 +117,8 @@ public class GameManager : MonoSingleton<GameManager> {
 		GameData.Instance.StepClear();
 		
 		// result popup
-		bool isWin = GameoverType == GAMEOVER_TYPE.WIN;
-		PopupManager.Instance.Show("ResultPopup", isWin, param => { SceneManager.LoadScene("MapScene"); });
-		
+		OnGameOver?.Invoke(GameoverType);
+
 		// character animation
 		foreach (var character in characters) {
 			character.GameOver();

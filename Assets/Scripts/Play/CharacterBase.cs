@@ -80,7 +80,7 @@ public class CharacterBase : MonoBehaviour {
     }
 
     private void Update() {
-        if (GameManager.Instance.GameoverType != GameManager.GAMEOVER_TYPE.NONE) return;
+        if (GameManager.Instance.GameoverType != GAMEOVER_TYPE.NONE) return;
         
         display.text = status.ToString()[0].ToString();
         attackGuage -= Time.deltaTime;

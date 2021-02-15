@@ -24,8 +24,8 @@ public class DeckCell : MonoBehaviour {
     // private Vector2Int coord;
 
     public void SetCoord(int idx) {
-        deckCellInfo.Coord.x = idx / 5;
-        deckCellInfo.Coord.y = idx % 5;
+        deckCellInfo.Coord.x = idx % 5;
+        deckCellInfo.Coord.y = idx / 5;
         cell.Coord = deckCellInfo.Coord;
     }
 

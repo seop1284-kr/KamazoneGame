@@ -28,6 +28,8 @@ public class ProfileControl : MonoBehaviour
     }
 
     public void OnClickProfile(ProfileCell profileCell) {
+        if (profileCell.HeroInfo == null) return;
+        
         heroExplain.text = GameData.Instance.CharacterInfos[profileCell.HeroInfo.type].name;
         selectedHero = profileCell;
         addButtonText.text = profileCell.IsOn ? "Remove" : "Add";

@@ -23,23 +23,21 @@ public class StartScene : MonoBehaviour
 
     // 이어하기 버튼 // 게임 시작
     public void OnClickContinueBtn() {
-        SceneManager.LoadScene("MapScene");
+        StartGame();
     }
 
     // 시작 버튼 // 저장된 데이터가 있는 경우 팝업 띄우기 // 저장된 데이터가 없는 경우 초기화 데이터로 시작 
     public void OnClickNewBtn() {
-        if (hasLoadData()) popup.gameObject.SetActive(true);
-        else {
-            GameData.Instance.InitPlayerData();
-            SceneManager.LoadScene("MapScene");
+        if (hasLoadData()) {
+            popup.gameObject.SetActive(true);
+        } else {
+            StartGame(true);
         }
     }
 
     // 팝업 확인 버튼 // 초기화 데이터로 시작
     public void OnClickOkBtn() {
-
-        GameData.Instance.InitPlayerData();
-        SceneManager.LoadScene("MapScene");
+        StartGame(true);
     }
 
     // 팝업 취소 버튼 // 팝업 없애기
@@ -52,6 +50,14 @@ public class StartScene : MonoBehaviour
     public bool hasLoadData() {
         if (File.Exists(dataPath)) return true;
         else return false;
+    }
+
+    private void StartGame(bool isInit = false) {
+        if (isInit) {
+            GameData.Instance.InitPlayerData();
+        }
+        GameData.Instance.LoadPlayerData();
+        SceneManager.LoadScene("MapScene");
     }
 
 }

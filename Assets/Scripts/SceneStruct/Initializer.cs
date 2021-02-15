@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Initializer : MonoBehaviour {
+public class Initializer : MonoSingleton<Initializer> {
     // 임시 코드
     private static bool isCalled = false;
    
@@ -10,7 +10,6 @@ public class Initializer : MonoBehaviour {
         GameData.Instance.LoadMonsterData();
         GameData.Instance.LoadStageData();
         GameData.Instance.LoadPlayerData();
-        DontDestroyOnLoad(this);
     }
 
     // 게임 종료

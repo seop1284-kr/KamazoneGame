@@ -69,6 +69,9 @@ public class BoardControl : MonoSingleton<BoardControl> {
 
         currentCell = null;
         selectedCell = null;
+
+        // 저장
+        GameData.Instance.SavePlayerData();
     }
 
     public void AddHero(ProfileCell profileCell) {

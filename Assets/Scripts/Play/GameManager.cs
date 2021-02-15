@@ -98,6 +98,7 @@ public class GameManager : MonoSingleton<GameManager> {
 	private void GameOver() {
 		// save data
 		GameData.Instance.StepClear();
+		GameData.Instance.SavePlayerData();
 		
 		// result popup
 		bool isWin = GameoverType == GAMEOVER_TYPE.WIN;

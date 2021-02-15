@@ -93,6 +93,9 @@ public class MapScene : MonoBehaviour {
                         break;
                     case Type.SHOP:
                         // shop step
+                        PopupManager.Instance.Show("ShopPopup", GameData.Instance.playerInfo, par => {
+
+                        });
                         break;
                     case Type.BATTLE:
                         // battle step - readypopup

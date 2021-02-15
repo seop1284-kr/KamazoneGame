@@ -1,6 +1,6 @@
 {
     "name": "누리",
-    "money": 0,
+    "money": 100,
     "heros": [
         {
             "index": 0,
@@ -24,6 +24,7 @@
     "levelIdx": 0,
     "clearedLevelList": [],
     "isPlaying": true,
-    "monsters": []
+    "monsters": [],
+    "shopInfo": []
 }
 

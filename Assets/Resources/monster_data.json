@@ -1,21 +1,21 @@
 [
     {
         "type": 0,
-        "name": "지나가던 몬스터",
+        "name": "slime",
         "hp": 100,
         "str": 20,
         "lv": 1
     },
     {
         "type": 1,
-        "name": "보스",
+        "name": "Boss",
         "hp": 200,
         "str": 50,
         "lv": 3
     },
     {
         "type": 2,
-        "name": "누리",
+        "name": "nuri",
         "hp": 100,
         "str": 50,
         "lv": 1

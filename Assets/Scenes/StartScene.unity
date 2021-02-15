@@ -887,12 +887,12 @@ PrefabInstance:
     - target: {fileID: 2909272571003716247, guid: f2a7a6b9592174511a71ffe405964ff2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 9
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2909272571003716247, guid: f2a7a6b9592174511a71ffe405964ff2,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2909272571003716247, guid: f2a7a6b9592174511a71ffe405964ff2,
         type: 3}
@@ -907,7 +907,7 @@ PrefabInstance:
     - target: {fileID: 2909272571003716247, guid: f2a7a6b9592174511a71ffe405964ff2,
         type: 3}
       propertyPath: m_text
-      value: New Start
+      value: "\uC2DC\uC791\uD558\uAE30"
       objectReference: {fileID: 0}
     - target: {fileID: 2909272571003716247, guid: f2a7a6b9592174511a71ffe405964ff2,
         type: 3}

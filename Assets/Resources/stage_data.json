@@ -46,10 +46,10 @@
                 "stage": 0,
                 "row": 3,
                 "col": 3,
-                "type": "BATTLE",
+                "type": "SHOP",
                 "tails": [5],
-                "monsters": [0, 0],
-                "monstersPos": [4, 20]
+                "monsters": [0, 1],
+                "monstersPos": [100, 200]
             },
             {
                 "index": 5,

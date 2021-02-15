@@ -115,6 +115,7 @@ public class GameManager : MonoSingleton<GameManager> {
 	private void GameOver() {
 		// save data
 		GameData.Instance.StepClear();
+		GameData.Instance.SavePlayerData();
 		
 		// result popup
 		OnGameOver?.Invoke(GameoverType);

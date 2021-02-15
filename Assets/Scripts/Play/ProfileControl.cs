@@ -20,7 +20,7 @@ public class ProfileControl : MonoBehaviour
 
         ProfileCell.OnClickHero = OnClickProfile;
         
-        for (int i = 0; i < GameData.Instance.playerInfo.heros.Length; ++i) {
+        for (int i = 0; i < GameData.Instance.playerInfo.heros.Count; ++i) {
             heroProfileCells[i].SetInfo(GameData.Instance.playerInfo.heros[i], i);
         }
         

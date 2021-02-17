@@ -35,7 +35,8 @@ public class CharacterBase : MonoBehaviour {
     private Status status = Status.IDLE;
     private CharacterBase targetCharacter;
 
-    private Stat characterInfo = new Stat();
+    public Stat CharacterStat => stat;
+    private Stat stat = new Stat();
 
     public bool IsDead => isDead;
     private bool isDead = false;
@@ -58,6 +59,8 @@ public class CharacterBase : MonoBehaviour {
     public void SetInfo(Character character, Type type) {
         this.character = character;
         CharacterType = type;
+        // TODO: stat setting
+        stat.hp = character.curHp;
     }
     
     // public void SetInfo() {
@@ -70,7 +73,7 @@ public class CharacterBase : MonoBehaviour {
 
     public void Init() {
         animator.Play("Idle");
-        attackGuage = characterInfo.attackInterval;
+        attackGuage = stat.attackInterval;
         targetDetectTime = TargetDetectInterval;
         RefreshHp();
     }
@@ -105,15 +108,15 @@ public class CharacterBase : MonoBehaviour {
             case Status.CHASE:
                 // chase 중에 적이 없어진 경우(죽은경우)
                 if (targetCharacter == null) {
-                    Debug.LogError("chase -> idle");
+                    Debug.Log("target character is dead");
                     Idle();
                     break;
                 }
                 
                 var vec = targetCharacter.transform.position - transform.position;
                 
-                if (Mathf.Abs(vec.magnitude) > characterInfo.attackDetectRange) {
-                    transform.Translate(vec * (Time.deltaTime * characterInfo.speed), Space.Self);
+                if (Mathf.Abs(vec.magnitude) > stat.attackDetectRange) {
+                    transform.Translate(vec * (Time.deltaTime * stat.speed), Space.Self);
                 } else if (attackGuage <= 0f) {
                     Attack();
                 }
@@ -137,12 +140,12 @@ public class CharacterBase : MonoBehaviour {
     
     private void Attack() {
         ChangeStatus(Status.ATTACK);
-        attackGuage = characterInfo.attackInterval;
+        attackGuage = stat.attackInterval;
     }
 
     public void HandleEvent(string eventName) {
         if (eventName == "GiveDamage") {
-            GameManager.Instance.Attack(targetCharacter, characterInfo.attackPower);
+            GameManager.Instance.Attack(targetCharacter, stat.attackPower);
         } else if (eventName == "FinishAttack") {
             ChangeStatus(Status.IDLE);
         } else if (eventName == "Disappear") {
@@ -162,12 +165,8 @@ public class CharacterBase : MonoBehaviour {
     // }
 
     public void AttackedFromOther(float dmg) {
-        characterInfo.hp -= dmg;
+        stat.hp -= dmg;
         RefreshHp();
-        if (characterInfo.hp <= 0) {
-            ChangeStatus(Status.DIE);
-            isDead = true;
-        }
     }
 
     public void GameOver() {
@@ -175,7 +174,11 @@ public class CharacterBase : MonoBehaviour {
     }
 
     private void RefreshHp() {
-        hpBar.material.SetFloat(Progress, characterInfo.hp / 10f);
+        hpBar.material.SetFloat(Progress, stat.hp / character.hp);    // 현재 능력치 hp (curhp) / 캐릭터 기본 hp (max hp)
+        if (stat.hp <= 0) {
+            ChangeStatus(Status.DIE);
+            isDead = true;
+        }
     }
 
     private void ChangeStatus(Status s) {

@@ -38,7 +38,7 @@ public class Character {
 	public int index;	// 각 캐릭터의 고유 값, 같은 종류라도 구분하도록
 	public int type;
     public int hp;
-	public int curHp;
+	public float curHp;
     public int str;
 	public int lv;
 

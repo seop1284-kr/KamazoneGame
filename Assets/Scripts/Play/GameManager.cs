@@ -26,22 +26,22 @@ public class GameManager : MonoSingleton<GameManager> {
 	public GAMEOVER_TYPE GameoverType { get; private set; }
 
 	public void SetupBoard() {
-		// var heroCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.GUARDIAN);
-		
-		foreach (var character in heroCharacters) {
-			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Hero");
-			var characterBasePrefab = GameObject.Instantiate(characterBase, HeroCharacterRoot);
-			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.GUARDIAN);
-			characterBasePrefab.SetPosition(character.Coord);
-			characters.Add(characterBasePrefab);
-		}
-
 		// var enemyCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.ENEMY);
 		
 		foreach (var character in enemyCharacters) {
 			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Enemy");
 			var characterBasePrefab = GameObject.Instantiate(characterBase, EnemyCharacterRoot);
 			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.ENEMY);
+			characterBasePrefab.SetPosition(character.Coord);
+			characters.Add(characterBasePrefab);
+		}
+		
+		// var heroCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.GUARDIAN);
+		
+		foreach (var character in heroCharacters) {
+			var characterBase = Resources.Load<CharacterBase>("Prefabs/Play/Hero");
+			var characterBasePrefab = GameObject.Instantiate(characterBase, HeroCharacterRoot);
+			characterBasePrefab.SetInfo(character.Character, CharacterBase.Type.GUARDIAN);
 			characterBasePrefab.SetPosition(character.Coord);
 			characters.Add(characterBasePrefab);
 		}
@@ -113,8 +113,22 @@ public class GameManager : MonoSingleton<GameManager> {
 	}
 
 	private void GameOver() {
-		// save data
-		GameData.Instance.StepClear();
+		// hp save
+		int chIdx = 0;
+		foreach (var enemyCharacter in enemyCharacters) {
+			var idx = enemyCharacter.Character.index;
+			Debug.Assert(chIdx < GameData.Instance.playerInfo.monsters.Count, $"chIdx({chIdx}) < monsters.Count ({GameData.Instance.playerInfo.monsters.Count})");
+			// 사실 win인 경우에는 monster curhp 저장할 필요 없음
+			GameData.Instance.playerInfo.monsters[chIdx].curHp = characters[chIdx].CharacterStat.hp;
+			chIdx++;
+		}
+		
+		foreach (var heroCharacter in heroCharacters) {
+			var idx = heroCharacter.Character.index;
+			GameData.Instance.playerInfo.heros[idx].curHp = characters[chIdx].CharacterStat.hp;
+			chIdx++;
+		}
+		
 		GameData.Instance.SavePlayerData();
 		
 		// result popup
@@ -123,6 +137,12 @@ public class GameManager : MonoSingleton<GameManager> {
 		// character animation
 		foreach (var character in characters) {
 			character.GameOver();
+		}
+		
+		// save data
+		if (GameoverType == GAMEOVER_TYPE.WIN) {
+			GameData.Instance.StepClear();
+		} else {
 		}
 	}
 

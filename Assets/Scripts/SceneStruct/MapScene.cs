@@ -42,6 +42,7 @@ public class MapScene : MonoBehaviour {
         // 스텝 비우기
         foreach (var step in steps) {
             step.SetActive(false);
+            step.SetInfo(null);
         }
 
         // 스텝 초기화

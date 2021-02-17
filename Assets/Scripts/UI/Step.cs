@@ -12,10 +12,18 @@ public struct StepInfo {
     public int col;
 
     public StepInfo(Level level) {
-        type = level.type;
-        index = level.index;
-        row = level.row;
-        col = level.col;
+        if (level != null) {
+            type = level.type;
+            index = level.index;
+            row = level.row;
+            col = level.col;    
+        } else {
+            type = Type.EMPTY;
+            index = -1;
+            row = -1;
+            col = -1;
+        }
+        
     }
 }
 

@@ -93,6 +93,7 @@ public class GameData : Singleton<GameData> {
             GameData.Instance.playerInfo.isPlaying = false;
             GameData.Instance.playerInfo.clearedLevelList.Add(playerInfo.levelIdx);
             GameData.Instance.playerInfo.monsters.Clear();
+            GameData.Instance.playerInfo.shopInfo.Clear();
         }
         
     }
@@ -103,7 +104,8 @@ public enum Type {
     QUESTION,
     SHOP,
     START,
-    BOSS
+    BOSS,
+    EMPTY
 }
 public enum StepStatusType {
     CHARON,

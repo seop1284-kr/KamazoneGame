@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.UIElements;
 using UnityEngine.UI;
 
 // ready popup에서 덱을 배치할수있는 셀

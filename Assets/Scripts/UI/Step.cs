@@ -39,6 +39,7 @@ public class Step : MonoBehaviour {
     }
     
     public void SetInfo(Level level) {
+
         this.info = new StepInfo(level);
         displayText.text = info.type.ToString();
 

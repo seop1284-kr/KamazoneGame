@@ -75,11 +75,185 @@
         ],
         "index": 0,
         "name": "우리집 앞마당",
-        "story": "안녕하시렵니까? 누리여요.\n저희 가족은 5명이랍니다.\n많이 먹는 다은이 언니..."
+        "story": "안녕하시렵니까? 누리여요.\n우리 가족은 6명이랍니다.\n많이 먹는 언니..."
     },
 
     {
+        "levels": [
+            {
+                "index": 0,
+                "stage": 1,
+                "row": -1,
+                "col": 0,
+                "type": "START",
+                "tails": [1, 2],
+                "monsters": [],
+                "monstersPos": []
+            },
+            {
+                "index": 1,
+                "stage": 1,
+                "row": 1,
+                "col": 1,
+                "type": "BATTLE",
+                "tails": [3],
+                "monsters": [0, 0],
+                "monstersPos": [3, 5]
+            },
+            {
+                "index": 2,
+                "stage": 1,
+                "row": 3,
+                "col": 1,
+                "type": "BATTLE",
+                "tails": [3],
+                "monsters": [0],
+                "monstersPos": [4]
+            },
+            {
+                "index": 3,
+                "stage": 1,
+                "row": 1,
+                "col": 2,
+                "type": "BATTLE",
+                "tails": [4],
+                "monsters": [0, 0],
+                "monstersPos": [3, 15]
+            },
+            {
+                "index": 4,
+                "stage": 1,
+                "row": 3,
+                "col": 3,
+                "type": "SHOP",
+                "tails": [5, 6],
+                "monsters": [0, 1],
+                "monstersPos": [100, 200]
+            },
+            {
+                "index": 5,
+                "stage": 1,
+                "row": 3,
+                "col": 4,
+                "type": "BATTLE",
+                "tails": [7],
+                "monsters": [0, 0],
+                "monstersPos": [4, 20]
+            },
+            {
+                "index": 6,
+                "stage": 1,
+                "row": 3,
+                "col": 4,
+                "type": "BATTLE",
+                "tails": [7],
+                "monsters": [0, 0],
+                "monstersPos": [4, 20]
+            },
+            {
+                "index": 7,
+                "stage": 1,
+                "row": -1,
+                "col": 5,
+                "type": "BOSS",
+                "tails": [],
+                "monsters": [0, 0, 1],
+                "monstersPos": [4, 5, 15]
+            }
+        
+        ],
+        "index": 1,
+        "name": "우리집 앞마당2",
+        "story": "그리고 동생 마루가 있어요. 먹고 자고 산책하고 매일 평화로운 삶은 보내던 중..."
+    },
 
+    {
+        "levels": [
+            {
+                "index": 0,
+                "stage": 2,
+                "row": -1,
+                "col": 0,
+                "type": "START",
+                "tails": [1, 2],
+                "monsters": [],
+                "monstersPos": []
+            },
+            {
+                "index": 1,
+                "stage": 2,
+                "row": 1,
+                "col": 1,
+                "type": "BATTLE",
+                "tails": [3],
+                "monsters": [0, 0],
+                "monstersPos": [3, 5]
+            },
+            {
+                "index": 2,
+                "stage": 2,
+                "row": 3,
+                "col": 1,
+                "type": "BATTLE",
+                "tails": [3],
+                "monsters": [0],
+                "monstersPos": [4]
+            },
+            {
+                "index": 3,
+                "stage": 2,
+                "row": 3,
+                "col": 2,
+                "type": "BATTLE",
+                "tails": [4],
+                "monsters": [0, 0],
+                "monstersPos": [3, 15]
+            },
+            {
+                "index": 4,
+                "stage": 2,
+                "row": 3,
+                "col": 3,
+                "type": "SHOP",
+                "tails": [5, 6],
+                "monsters": [0, 1],
+                "monstersPos": [100, 200]
+            },
+            {
+                "index": 5,
+                "stage": 2,
+                "row": 3,
+                "col": 4,
+                "type": "BATTLE",
+                "tails": [7],
+                "monsters": [0, 0],
+                "monstersPos": [4, 20]
+            },
+            {
+                "index": 6,
+                "stage": 2,
+                "row": 3,
+                "col": 4,
+                "type": "BATTLE",
+                "tails": [7],
+                "monsters": [0, 0],
+                "monstersPos": [4, 20]
+            },
+            {
+                "index": 7,
+                "stage": 2,
+                "row": -1,
+                "col": 5,
+                "type": "BOSS",
+                "tails": [],
+                "monsters": [0, 0, 1],
+                "monstersPos": [4, 5, 15]
+            }
+        
+        ],
+        "index": 2,
+        "name": "우리집 뒷마당",
+        "story": "갑자기 지루해지기 시작했어요. 그래서 동생 마루와 함께 여행을 떠났습니다."
     }
     
 ]

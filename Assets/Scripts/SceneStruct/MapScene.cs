@@ -70,6 +70,9 @@ public class MapScene : MonoBehaviour {
         // 캐릭터 이동
         character.Set(CheckCharPos());
 
+        // 저장
+        GameData.Instance.SavePlayerData();
+
     }
 
     // 스텝 클릭 액션 함수
@@ -90,11 +93,18 @@ public class MapScene : MonoBehaviour {
                                 }
                             }
                         });
+                                
                         break;
                     case Type.SHOP:
                         // shop step
                         PopupManager.Instance.Show("ShopPopup", GameData.Instance.playerInfo, par => {
-
+                            if (par != null) {
+                                var result = (string) par;
+                                if (result == "pass") {
+                                    GameData.Instance.StepClear();
+                                    InitMap();
+                                }
+                            }
                         });
                         break;
                     case Type.BATTLE:
@@ -104,6 +114,7 @@ public class MapScene : MonoBehaviour {
                                 var result = (string) par;
                                 if (result == "start") {
                                     SceneManager.LoadScene("BattleScene");
+                                    InitMap();
                                 }
                             }
                         });
@@ -111,8 +122,17 @@ public class MapScene : MonoBehaviour {
 
                     case Type.BOSS:
                         // boss step
-                        
+                        PopupManager.Instance.Show("ReadyPopup", GameData.Instance.stages[GameData.Instance.playerInfo.stageIdx].levels[step.GetInfo().index], par => {
+                            if (par != null) {
+                                var result = (string) par;
+                                if (result == "start") {
+                                    SceneManager.LoadScene("BattleScene");
+                                    InitMap();
+                                }
+                            }
+                        });
                         break;
+
                     case Type.QUESTION:
                         // question step
                         break;

@@ -82,9 +82,19 @@ public class GameData : Singleton<GameData> {
 
     // 스텝 클리어시 데이터 처리
     public void StepClear() {
-        GameData.Instance.playerInfo.isPlaying = false;
-        GameData.Instance.playerInfo.clearedLevelList.Add(playerInfo.levelIdx);
-        GameData.Instance.playerInfo.monsters.Clear();
+        // BOSS 스텝이면 스테이지 +1
+        if (GameData.Instance.stages[playerInfo.stageIdx].levels[playerInfo.levelIdx].type == Type.BOSS) {
+            GameData.Instance.playerInfo.isPlaying = true;
+            GameData.Instance.playerInfo.clearedLevelList.Clear();
+            GameData.Instance.playerInfo.monsters.Clear();
+            GameData.Instance.playerInfo.stageIdx += 1;
+            GameData.Instance.playerInfo.levelIdx = 0;
+        } else {
+            GameData.Instance.playerInfo.isPlaying = false;
+            GameData.Instance.playerInfo.clearedLevelList.Add(playerInfo.levelIdx);
+            GameData.Instance.playerInfo.monsters.Clear();
+        }
+        
     }
 }
 

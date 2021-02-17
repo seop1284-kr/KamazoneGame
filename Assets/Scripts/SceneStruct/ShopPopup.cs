@@ -23,4 +23,8 @@ public class ShopPopup : PopupBase {
         Init();
     }
 
+    public void OnClickPass() {
+        PopupManager.Instance.Close("pass");
+    }
+
 }

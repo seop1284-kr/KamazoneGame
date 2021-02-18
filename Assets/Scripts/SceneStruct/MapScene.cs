@@ -9,6 +9,9 @@ public class MapScene : MonoBehaviour {
     [SerializeField] private Step[] steps;
     [SerializeField] private Step bossStep;
     [SerializeField] private CharacterInMap character;
+    [SerializeField] private InfoText floorText;
+    [SerializeField] private InfoText stageNameText;
+    
 
     private void Start() {
         Step.OnClicked = OnClickStep;
@@ -38,6 +41,10 @@ public class MapScene : MonoBehaviour {
     private void InitMap() {
         int curStageIdx = GameData.Instance.playerInfo.stageIdx;
         int curLevelIdx = GameData.Instance.playerInfo.levelIdx;
+        
+        // 현재 스테이지 정보 출력
+        floorText.Info = (curStageIdx + 1).ToString() + " 스테이지";
+        stageNameText.Info = GameData.Instance.stages[curStageIdx].name;
 
         // 스텝 비우기
         foreach (var step in steps) {
@@ -157,6 +164,8 @@ public class MapScene : MonoBehaviour {
         }
         InitMap();
     }
+
+
 
     // 캐릭터 위치 확인
     private Vector3 CheckCharPos() {

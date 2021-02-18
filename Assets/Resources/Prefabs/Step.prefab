@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8901740456206375386, guid: 64acd806046cc48ea94e8fab17e55a6c, type: 2}
+  - {fileID: 6294343316095366613, guid: 62eb22ea60462cd40ad5a5459c1a5bff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,8 +115,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: QUESTION
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 64acd806046cc48ea94e8fab17e55a6c, type: 2}
-  m_sharedMaterial: {fileID: -8901740456206375386, guid: 64acd806046cc48ea94e8fab17e55a6c,
+  m_fontAsset: {fileID: 11400000, guid: 62eb22ea60462cd40ad5a5459c1a5bff, type: 2}
+  m_sharedMaterial: {fileID: 6294343316095366613, guid: 62eb22ea60462cd40ad5a5459c1a5bff,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 3.8
+  m_fontSize: 4.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -254,7 +254,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayText: {fileID: 4706335338509271289}
   sprite: {fileID: 3005561252700604672}
-  isCleared: 0
 --- !u!61 &3769834724383712275
 BoxCollider2D:
   m_ObjectHideFlags: 0

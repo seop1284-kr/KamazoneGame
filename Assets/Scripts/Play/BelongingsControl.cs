@@ -11,7 +11,7 @@ public class BelongingsControl : MonoBehaviour
 
     public void ShowBelongings() {
         
-        MoneyText.text = GameData.Instance.playerInfo.money.ToString() + "G";
-        PopulationText.text = GameData.Instance.playerInfo.heros.Count.ToString() + "/10";
+        MoneyText.text = "소지금: " + GameData.Instance.playerInfo.money.ToString() + "G";
+        PopulationText.text = "영웅: " + GameData.Instance.playerInfo.heros.Count.ToString() + "/10";
     }
 }

@@ -55,13 +55,14 @@ public class ItemBoardControl : MonoSingleton<ItemBoardControl>
     }
 
     public void OnClickItemProfile(ItemCell itemCell) {
-        if (itemCell.ItemInfo == null) {
+        if (itemCell.sold) {
             return;
         }
         statText.text = itemCell.ItemInfo.characterInfo.name + "\nhp: " + itemCell.ItemInfo.characterInfo.hp.ToString() + "\nstr: " + itemCell.ItemInfo.characterInfo.str.ToString();
         buyBtnText.text = itemCell.ItemInfo.price.ToString() + "G";
         SelectedItemCell = itemCell;
     }
+    
     public void BuyItem() {
 
         if (SelectedItemCell != null) {

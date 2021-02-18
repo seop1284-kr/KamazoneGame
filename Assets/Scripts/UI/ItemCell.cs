@@ -13,19 +13,21 @@ public class ItemCell : MonoBehaviour {
     public static System.Action<ItemCell> OnClickItem;
 
     private ItemInfo itemInfo;
-    public ItemInfo ItemInfo => itemInfo;  
+    public ItemInfo ItemInfo => itemInfo; 
+    public bool sold;
 
     public void SetInfo(ItemInfo itemInfo) {
         if (itemInfo == null) {
             nameText.text = "";
             bg.color = Color.grey;
             heroPicture.color = Color.grey;
+            sold = true;
         } else {
             this.itemInfo = itemInfo;
-
             nameText.text = this.itemInfo.characterInfo.name;
             bg.color = Color.white;
             heroPicture.color = Color.white;
+            sold = false;
         }
 
     }

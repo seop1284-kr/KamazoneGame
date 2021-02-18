@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 1715589831027971998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.875, y: 0.8375, z: 1}
   m_Children:
   - {fileID: 640303655590373150}
   - {fileID: 1715589831149225730}
@@ -64,6 +64,7 @@ MonoBehaviour:
   nameText: {fileID: 1715589831233463542}
   bg: {fileID: 1936712113956040957}
   heroPicture: {fileID: 1715589831149225733}
+  sold: 0
 --- !u!114 &754653129952305646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +146,7 @@ RectTransform:
   m_GameObject: {fileID: 1715589831149225731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.825, y: 0.81562495, z: 1}
   m_Children: []
   m_Father: {fileID: 1715589831027972001}
   m_RootOrder: 1
@@ -258,8 +259,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 64acd806046cc48ea94e8fab17e55a6c, type: 2}
-  m_sharedMaterial: {fileID: -8901740456206375386, guid: 64acd806046cc48ea94e8fab17e55a6c,
+  m_fontAsset: {fileID: 11400000, guid: 2e8bf1b5435e26543920c19d7ad4caa2, type: 2}
+  m_sharedMaterial: {fileID: -4693709583955001798, guid: 2e8bf1b5435e26543920c19d7ad4caa2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -413,7 +414,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7066e0747291df44fa5c2bf93bee3a6e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

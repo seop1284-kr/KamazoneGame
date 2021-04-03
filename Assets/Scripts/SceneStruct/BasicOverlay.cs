@@ -9,7 +9,7 @@ public class BasicOverlay : OverlayBase {
             PopupManager.Instance.Close();
         } else {
             // scene change
-            SceneManager.LoadScene("StartScene");
+            SceneManager.Instance.ChangeScene("StartScene");
         }
     }
 }

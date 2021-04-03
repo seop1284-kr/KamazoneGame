@@ -22,7 +22,7 @@ public class MonoSingleton<T> : UIBehaviour where T : MonoBehaviour {
 				_instance = GameObject.FindObjectOfType<T>();
 
 				if (_instance == null) {
-					_instance = new GameObject($"MonoSingleton{typeof(T).ToString()}").GetComponent<T>();
+					_instance = new GameObject($"MonoSingleton{typeof(T).ToString()}").AddComponent<T>();
 				}
 			}
 
@@ -31,7 +31,10 @@ public class MonoSingleton<T> : UIBehaviour where T : MonoBehaviour {
 	}
 
 	private static T _instance;
-	
+
+	public virtual void Init() {
+	}
+
 	protected override void Awake() {
 		DontDestroyOnLoad(gameObject);
 	}

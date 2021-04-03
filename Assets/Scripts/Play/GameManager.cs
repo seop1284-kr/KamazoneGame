@@ -9,6 +9,13 @@ public enum GAMEOVER_TYPE {
 	NONE
 }
 
+public enum GAME_STATE {
+	READY,
+	PLAY,
+	END,
+	PAUSE
+}
+
 public class GameManager : MonoSingleton<GameManager> {
 	
 	private Transform HeroCharacterRoot;
@@ -23,7 +30,9 @@ public class GameManager : MonoSingleton<GameManager> {
 	public static List<DeckCell.DeckCellInfo> heroCharacters;
 	public static List<DeckCell.DeckCellInfo> enemyCharacters;
 	
+	
 	public GAMEOVER_TYPE GameoverType { get; private set; }
+	public GAME_STATE GameState { get; private set; }
 
 	public void SetupBoard() {
 		// var enemyCharacters = BoardControl.Instance.GetDeckCellInfos(CharacterBase.Type.ENEMY);
@@ -110,6 +119,18 @@ public class GameManager : MonoSingleton<GameManager> {
 		if (GameoverType != GAMEOVER_TYPE.NONE) {
 			GameOver();
 		}
+	}
+
+	public void Pause() {
+		if (GameState == GAME_STATE.END) return;
+		
+		GameState = GAME_STATE.PAUSE;
+		Time.timeScale = 0f;
+	}
+
+	public void Resume() {
+		GameState = GAME_STATE.PLAY;
+		Time.timeScale = 1f;
 	}
 
 	private void GameOver() {

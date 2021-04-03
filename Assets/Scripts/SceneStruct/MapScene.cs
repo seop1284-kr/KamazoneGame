@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MapScene : MonoBehaviour {
+public class MapScene : SceneBase {
     [SerializeField] private Step startStep;
     [SerializeField] private Step[] steps;
     [SerializeField] private Step bossStep;
@@ -33,7 +33,9 @@ public class MapScene : MonoBehaviour {
        
     }
 
-    private void Entered() {
+    public override void Entered() {
+        base.Entered();
+        
         OverlayManager.Instance.Show("BasicOverlay");
         InitMap();
     }
@@ -121,7 +123,7 @@ public class MapScene : MonoBehaviour {
                             if (par != null) {
                                 var result = (string) par;
                                 if (result == "start") {
-                                    SceneManager.LoadScene("BattleScene");
+                                    SceneManager.Instance.ChangeScene("BattleScene");
                                     InitMap();
                                 }
                             }
@@ -134,7 +136,7 @@ public class MapScene : MonoBehaviour {
                             if (par != null) {
                                 var result = (string) par;
                                 if (result == "start") {
-                                    SceneManager.LoadScene("BattleScene");
+                                    SceneManager.Instance.ChangeScene("BattleScene");
                                     InitMap();
                                 }
                             }
@@ -219,5 +221,7 @@ public class MapScene : MonoBehaviour {
         return false;
     }
 
-  
+    public override void OnEscape() {
+        SceneManager.Instance.ChangeScene("StartScene");
+    }
 }

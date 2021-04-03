@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PopupBase : MonoBehaviour
+public class PopupBase : HandlerBase
 {
     public void Show() {
         gameObject.SetActive(true);

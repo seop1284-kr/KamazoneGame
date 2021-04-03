@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 
-public class StartScene : MonoBehaviour
+public class StartScene : SceneBase
 {
     public Button continueBtn;
     public Canvas popup;
@@ -17,6 +17,12 @@ public class StartScene : MonoBehaviour
     private string dataPath;
     
     void Start() {
+        Entered();
+    }
+
+    public override void Entered() {
+        base.Entered();
+        
         dataPath = Application.persistentDataPath + "/gameData.dat";
         if (hasLoadData()) continueBtn.gameObject.SetActive(true);
     }
@@ -57,7 +63,7 @@ public class StartScene : MonoBehaviour
             GameData.Instance.InitPlayerData();
         }
         GameData.Instance.LoadPlayerData();
-        SceneManager.LoadScene("MapScene");
+        SceneManager.Instance.ChangeScene("MapScene");
     }
 
 }

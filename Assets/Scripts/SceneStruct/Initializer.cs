@@ -7,9 +7,11 @@ public class Initializer : MonoSingleton<Initializer> {
     private static bool isCalled = false;
    
     void Start() {
+        Director.Instance.Init();
+        
         GameData.Instance.LoadMonsterData();
         GameData.Instance.LoadStageData();
-        GameData.Instance.LoadPlayerData();
+        // GameData.Instance.LoadPlayerData();
     }
 
     // 게임 종료

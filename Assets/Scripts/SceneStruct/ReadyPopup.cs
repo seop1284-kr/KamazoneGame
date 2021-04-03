@@ -11,6 +11,8 @@ public class ReadyPopup : PopupBase {
     private Level level;
 
     public override void Enter(object param) {
+        base.Enter(param);
+        
         level = param as Level;
         boardControl.InitBoard(level);
         profileControl.Init();
@@ -21,5 +23,11 @@ public class ReadyPopup : PopupBase {
         BoardControl.Instance.SaveDeckCellInfos(CharacterBase.Type.ENEMY);
         
         PopupManager.Instance.Close("start");
+    }
+
+    public override void OnEscape() {
+        base.OnEscape();
+        
+        PopupManager.Instance.Close();
     }
 }

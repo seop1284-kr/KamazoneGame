@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PopupManager : Singleton<PopupManager> {
+    public PopupItem TopPopup => _popups.Peek();
+    
     private Dictionary<string, PopupBase> _popupCache = new Dictionary<string, PopupBase>();
     private Stack<PopupItem> _popups = new Stack<PopupItem>();
 
-    class PopupItem {
+    public class PopupItem {
         public PopupItem(PopupBase p, Action<object> c) {
             popupBase = p;
             callback = c;
